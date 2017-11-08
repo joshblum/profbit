@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/profbit
+    docker:
+        - image: python:3.6.1
+    steps:
+      - checkout
+      - run: make installdeps
+      - run: pipenv run make lint
+        # TODO(joshblum): Tests

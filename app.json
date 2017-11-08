@@ -1,0 +1,33 @@
+{
+  "name": "ProfBit Server",
+  "description": "Simple server to OAuth with Coinbase and gather profit statistics.",
+  "repository": "https://github.com/joshblum/profbit",
+  "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],
+  "logo": "http://TODO.com",
+  "website": "http://TODO.com",
+  "success_url": "/login/coinbase",
+  "scripts": {
+    "postdeploy": "FLASK_APP=profbit/app.py flask syncdb"
+  },
+  "addons": [{
+    "plan": "heroku-postgresql"
+  }],
+  "env": {
+    "SECRET_KEY": {
+      "description": "Secret key for the flask application",
+      "generator": "secret"
+    },
+    "SOCIAL_AUTH_COINBASE_KEY": {
+      "description": "Your OAuth application key. When registering your app be sure to add the redirect url i.e.  https://app-name.herokuapp.com/complete/coinbase/",
+      "value": "Fill in the the key after registering your app: https://coinbase.com/oauth/applications"
+    },
+    "SOCIAL_AUTH_COINBASE_SECRET": {
+      "description": "You OAuth secret key",
+      "value": "Get the secret after registering your app: https://coinbase.com/oauth/applications"
+    },
+    "IS_HEROKU": {
+      "description": "Signals that the server is running on Heroku",
+      "value": "1"
+    }
+  }
+}
