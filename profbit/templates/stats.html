@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+  {% for stat_dict in stats if stat_dict['name'] != 'USD' %}
+      <div class="col center s6 offset-m2 m3">
+        <div class="card white">
+          <div class="card-content black-text">
+            {% with name=stat_dict["name"],
+            investment=stat_dict["investment"],
+            investment_return=stat_dict["investment_return"],
+            percent_return=stat_dict["percent_return"] %}
+            <span class="card-title">{{ name }}</span>
+            <div>Investment {{ "$%.2f"|format(investment) }}</div>
+            <div>Return {{ "$%.2f"|format(investment_return) }} ({{ "%.2f"|format(percent_return) }}%)</div>
+            {% endwith %}
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+{% endblock %}
