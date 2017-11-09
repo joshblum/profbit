@@ -23,4 +23,3 @@ class User(BaseModel, UserMixin):
 
     class Meta:
         order_by = ('username',)
-

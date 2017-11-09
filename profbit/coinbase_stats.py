@@ -1,5 +1,6 @@
 from coinbase.wallet.client import OAuthClient
 
+
 def _percent(investment, investment_return):
     if investment == 0:
         percent_return = 0

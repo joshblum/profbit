@@ -8,11 +8,15 @@ from social_flask.utils import load_strategy
 from .app import app
 from .coinbase_stats import get_coinbase_stats
 
+
 def _get_stats():
     social_auth_user = g.user.social_auth.get()
-    social_auth_user.extra_data['expires'] = social_auth_user.extra_data['expires_in']
+    # Coinbase returns `expires_in` but PSA expects `expires`
+    social_auth_user.extra_data['expires'] = social_auth_user.extra_data[
+            'expires_in']
     access_token = social_auth_user.get_access_token(load_strategy())
     return get_coinbase_stats(access_token)
+
 
 @app.route('/')
 def index():
@@ -24,6 +28,7 @@ def index():
 def stats():
     stats = _get_stats()
     return render_template('stats.html', stats=stats)
+
 
 @app.route('/api/stats/')
 @login_required
