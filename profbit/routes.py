@@ -46,20 +46,21 @@ def logout():
         'success': True,
     })
 
+
 @app.errorhandler(403)
 def forbidden(e):
     return render_template('error.html',
-            error_title=403,
-            page_title="403 Forbidden"
-            ), 403
+                           error_title=403,
+                           page_title="403 Forbidden"
+                           ), 403
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html',
-            error_title=404,
-            page_title="404 Page Not Found"
-            ), 404
+                           error_title=404,
+                           page_title="404 Page Not Found"
+                           ), 404
 
 
 @app.errorhandler(Exception)
@@ -72,4 +73,4 @@ def internal_server_error(error):
     if sentry:
         context['event_id'] = g.sentry_event_id
         context['public_dsn'] = sentry.client.get_public_dsn('https')
-    return render_template('error.html',**context), 500
+    return render_template('error.html', **context), 500
