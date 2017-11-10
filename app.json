@@ -1,5 +1,5 @@
 {
-  "name": "ProfBit Server",
+  "name": "Profbit Server",
   "description": "Simple server to OAuth with Coinbase and gather profit statistics.",
   "repository": "https://github.com/joshblum/profbit",
   "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],

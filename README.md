@@ -39,7 +39,7 @@ flask syncdb
 
 ## Donate
 
-ProfBit is an open source side project. To support development and keep
+Profbit is an open source side project. To support development and keep
 our server running, you can donate using Bitcoin and Ethereum:
 
 - Bitcoin: `19UsnMKjhm22mFEYKKNHjxdFCfnShTcbPM`
