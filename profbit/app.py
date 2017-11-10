@@ -73,6 +73,7 @@ def load_user(userid):
 def unauthorized_callback():
     return redirect('/')
 
+
 @app.before_request
 def global_user():
     # evaluate proxy value

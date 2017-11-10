@@ -45,6 +45,7 @@ def logout():
     logout_user()
     return redirect('/')
 
+
 @app.errorhandler(403)
 def forbidden(e):
     return render_template('error.html',
