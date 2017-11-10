@@ -1,1 +1,1 @@
-from . import routes # noqa
+from . import routes  # noqa

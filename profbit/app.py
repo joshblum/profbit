@@ -17,8 +17,10 @@ from .models import database_proxy
 app = Flask(__name__)
 app.config.from_object('profbit.settings')
 
-if not app.debug and app.config.get('SENTRY_DNS_KEY'):
+if not app.debug and app.config.get('SENTRY_DSN'):
     sentry = Sentry(app)
+else:
+    sentry = None
 
 IS_HEROKU = app.config.get('IS_HEROKU', False)
 DATABASE_URL = app.config['DATABASE_URL']

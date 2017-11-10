@@ -1,16 +1,15 @@
 import os
 
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
-SOCIAL_AUTH_COINBASE_KEY = os.environ.get('SOCIAL_AUTH_COINBASE_KEY', '')
-SOCIAL_AUTH_COINBASE_SECRET = os.environ.get('SOCIAL_AUTH_COINBASE_SECRET', '')
-SECRET_KEY = os.environ.get('SOCIAL_AUTH_COINBASE_SECRET', '')
 IS_HEROKU = os.environ.get('IS_HEROKU', False)
 FLASK_DEBUG = not IS_HEROKU
 SESSION_COOKIE_NAME = 'psa_session'
 DATABASE_URL = os.environ.get('DATABASE_URL', '/tmp/profbit.db')
-DEBUG_TB_INTERCEPT_REDIRECTS = False
-SESSION_PROTECTION = 'strong'
+SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
+
 SOCIAL_AUTH_COINBASE_GET_ALL_EXTRA_DATA = True
+SOCIAL_AUTH_COINBASE_KEY = os.environ.get('SOCIAL_AUTH_COINBASE_KEY', '')
+SOCIAL_AUTH_COINBASE_SECRET = os.environ.get('SOCIAL_AUTH_COINBASE_SECRET', '')
 SOCIAL_AUTH_COINBASE_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_COINBASE_SCOPE = [
     'wallet:accounts:read', 'wallet:transactions:read']
