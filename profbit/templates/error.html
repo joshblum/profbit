@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block page_title %} {{ page_title }} {% endblock %}
+{% block main %}
+
+<div class="row">
+  <div class="col s12 center flow-text">
+    <h1> {{ error_title }} </h1>
+    <div>
+      Looks like an error :/
+    </div>
+    <div>
+      Head back <a href="{{ url_for('index') }}">home</a>.
+    </div>
+  </div>
+</div>
+
+{% if event_id %}
+  <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js"></script>
+
+  <script>
+    Raven.showReportDialog(
+    {
+      eventId: '{{ event_id }}',
+      dsn: '{{ public_dsn }}'
+    });
+  </script>
+{% endif %}
+{% endblock %}

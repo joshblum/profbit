@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>ProfBit - See you Coinbase profits</title>
+  <title>{% block page_title %} ProfBit - See you Coinbase profits {% endblock %}</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,7 +32,7 @@
     </div>
   </nav>
   <main>
-  {% block body %}
+  {% block main %}
   {% endblock %}
   </main>
   <footer class="page-footer light-blue">

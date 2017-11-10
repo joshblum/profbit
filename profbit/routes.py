@@ -6,6 +6,7 @@ from flask_login import logout_user
 from social_flask.utils import load_strategy
 
 from .app import app
+from .app import sentry
 from .coinbase_stats import get_coinbase_stats
 
 
@@ -44,3 +45,31 @@ def logout():
     return jsonify({
         'success': True,
     })
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('error.html',
+            error_title=403,
+            page_title="403 Forbidden"
+            ), 403
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html',
+            error_title=404,
+            page_title="404 Page Not Found"
+            ), 404
+
+
+@app.errorhandler(Exception)
+@app.errorhandler(500)
+def internal_server_error(error):
+    context = {
+        'error_title': 500,
+        'page_title': '500 Internal Server Error',
+    }
+    if sentry:
+        context['event_id'] = g.sentry_event_id
+        context['public_dsn'] = sentry.client.get_public_dsn('https')
+    return render_template('error.html',**context), 500
