@@ -2,6 +2,7 @@ from urllib import parse
 
 from flask import Flask
 from flask import g
+from flask import redirect
 from flask_login import LoginManager
 from flask_login import current_user
 from peewee import PostgresqlDatabase
@@ -66,6 +67,11 @@ def load_user(userid):
         return User.get(User.id == userid)
     except User.DoesNotExist:
         pass
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/')
 
 
 @app.before_request
