@@ -25,6 +25,10 @@
       "description": "You OAuth secret key",
       "value": "Get the secret after registering your app: https://coinbase.com/oauth/applications"
     },
+    "SENTRY_DNS_KEY": {
+      "description": "If you would like to use sentry to record errors, record your key here. https://sentry.io",
+      "value": "Optional"
+    },
     "IS_HEROKU": {
       "description": "Signals that the server is running on Heroku",
       "value": "1"

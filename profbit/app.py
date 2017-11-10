@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_login import current_user
 from peewee import PostgresqlDatabase
 from peewee import SqliteDatabase
+from raven.contrib.flask import Sentry
 from social_flask.routes import social_auth
 from social_flask_peewee.models import FlaskStorage
 from social_flask_peewee.models import init_social
@@ -16,7 +17,10 @@ from .models import database_proxy
 app = Flask(__name__)
 app.config.from_object('profbit.settings')
 
-IS_HEROKU = app.config['IS_HEROKU']
+if not app.debug and app.config.get('SENTRY_DNS_KEY'):
+    sentry = Sentry(app)
+
+IS_HEROKU = app.config.get('IS_HEROKU', False)
 DATABASE_URL = app.config['DATABASE_URL']
 
 if IS_HEROKU:

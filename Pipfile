@@ -21,3 +21,4 @@ flask-login = "*"
 gunicorn = "*"
 "psycopg2" = "*"
 werkzeug = "*"
+raven = {extras = ["flask"]}
