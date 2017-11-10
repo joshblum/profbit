@@ -35,3 +35,12 @@ export FLASK_APP=app.py
 
 flask syncdb
 ```
+
+
+## Donate
+
+ProfBit is an open source side project. To support development and keep
+our server running, you can donate using Bitcoin and Ethereum:
+
+- Bitcoin: `19UsnMKjhm22mFEYKKNHjxdFCfnShTcbPM`
+- Ethereum: `0x97A3D535391A5a87f8362935B26f252E68C25Aca`

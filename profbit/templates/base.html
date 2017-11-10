@@ -11,21 +11,31 @@
   <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Profbit</a>
-      <ul class="right hide-on-med-and-down">
+  <nav class="light-blue accent-4" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">Profbit</a>
+      <ul class="right hide-on-med-and-down valign-wrapper">
+        <li class="no-hover">
+          <a class="valign-wrapper" target="_blank" href="https://github.com/joshblum/profbit/">
+            <span class="social-icon github-icon"></span></a>
+        </li>
         {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('stats') }}">My Stats</a></li>
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
-          <li><a href="/login/coinbase?remember_me=1">Login</a></li>
+          <li><a href="{{ config.LOGIN_URL }}">Login</a></li>
         {% endif %}
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+        <li class="no-hover">
+          <a id="github-mobile-nav" class="valign-wrapper" target="_blank" href="https://github.com/joshblum/profbit/">
+            <span class="black social-icon github-icon"></span></a>
+        </li>
         {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('stats') }}">My Stats</a></li>
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
-          <li><a href="/login/coinbase?remember_me=1">Login</a></li>
+          <li><a href="{{ config.LOGIN_URL }}">Login</a></li>
         {% endif %}
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -35,22 +45,23 @@
   {% block main %}
   {% endblock %}
   </main>
-  <footer class="page-footer light-blue">
+  <footer class="light-blue accent-4">
     <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Profbit</h5>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
+        <div class="col l6 s12 valign-wrapper right">
+        <a class="github-button" href="https://github.com/joshblum/profbit"
+          data-size="large" data-show-count="true" aria-label="Star
+          joshblum/profbit on GitHub">Star</a>
+        <a class="github-button"
+          href="https://github.com/joshblum/profbit/issues" data-size="large"
+          data-show-count="true" aria-label="Issue joshblum/profbit on
+        GitHub">Issue</a>
       </div>
     </div>
   </footer>
 
 
   <!--  Scripts-->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/init.js') }}"></script>

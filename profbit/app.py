@@ -12,6 +12,7 @@ from social_flask.routes import social_auth
 from social_flask_peewee.models import FlaskStorage
 from social_flask_peewee.models import init_social
 
+from .currency_map import CURRENCY_MAP
 from .models import User
 from .models import database_proxy
 
@@ -86,3 +87,11 @@ def inject_user():
         return {'user': g.user}
     except AttributeError:
         return {'user': None}
+
+
+@app.context_processor
+def utility_processor():
+    def format_price(amount, currency_code='USD'):
+        symbol = CURRENCY_MAP.get(currency_code, '$')
+        return u'{0}{1:,.2f}'.format(symbol, amount)
+    return dict(format_price=format_price)

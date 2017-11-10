@@ -1,22 +1,47 @@
 {% extends "base.html" %}
 
 {% block main %}
-<div class="row">
-  {% for stat_dict in stats if stat_dict['name'] != 'USD' %}
-      <div class="col center s6 offset-m2 m3">
-        <div class="card white">
-          <div class="card-content black-text">
-            {% with name=stat_dict["name"],
-            investment=stat_dict["investment"],
-            investment_return=stat_dict["investment_return"],
-            percent_return=stat_dict["percent_return"] %}
-            <span class="card-title">{{ name }}</span>
-            <div>Investment {{ "$%.2f"|format(investment) }}</div>
-            <div>Return {{ "$%.2f"|format(investment_return) }} ({{ "%.2f"|format(percent_return) }}%)</div>
-            {% endwith %}
+<div class="valign-wrapper stats-container container">
+  <div class="row">
+    {% for stat_dict in stats if stat_dict['name'] != 'USD' %}
+        <div class="col center s6">
+          <div class="card white z-depth-3">
+            <div class="card-content black-text">
+              {% with name=stat_dict["name"],
+              native_currency=stat_dict["native_currency"],
+              investment=stat_dict["investment"],
+              return_investment=stat_dict["return_investment"],
+              return_percent=stat_dict["return_percent"] %}
+              {% if return_investment > 0 %}
+                {% set gains="positive" %}
+                {% set gains_symbol="+" %}
+              {% else %}
+                {% set gains="negative" %}
+                {% set gains_symbol="-" %}
+              {% endif %}
+              <div class="card-title">
+                <div class="valign-wrapper flex-center">
+                  <span class="currency-icon {{ name |lower}}-icon"></span>
+                  <span>{{ name }}</span>
+                </div>
+              </div>
+              <div class="flow-text">
+                <span class="investment-amount"> {{ format_price(investment, native_currency) }} </span>
+                <span class="vertical-divider"></span>
+                <span class="investment-amount">
+                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ format_price(return_investment, native_currency) }}
+                </span>
+                <span class="vertical-divider"></span>
+                <span class="investment-amount">
+                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ "%.2f"|format(return_percent) }}%
+                </span>
+              </div>
+              {% endwith %}
+            </div>
           </div>
         </div>
-      </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 </div>
+
 {% endblock %}

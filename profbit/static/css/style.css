@@ -1,9 +1,95 @@
 body {
   display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   min-height: 100vh;
   flex-direction: column;
 }
 
 main {
   flex: 1 0 auto;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.vertical-divider {
+  border-right: 1px solid #DAE1E9;
+}
+
+.no-hover:hover {
+  background-color: transparent;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  display: inline-block;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+}
+
+.github-icon {
+  -webkit-mask-image: url("../img/github-logo.png");
+  mask-image: url("../img/github-logo.png");
+}
+
+#github-mobile-nav {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.demo-image {
+  width: 135%;
+}
+
+.stats-container {
+  height: 80vh;
+}
+
+.positive-gains {
+  color: #61CA00;
+}
+
+.negative-gains {
+  color: #f44336;
+}
+
+.investment-amount {
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.currency-icon {
+  width: 24px;
+  height: 24px;
+  margin: 5px;
+  background-color: white;
+  display: inline-block;
+}
+
+.total-icon {
+  background-image: url("/static/img/total.svg");
+}
+
+.btc-icon {
+  background-image: url("/static/img/bitcoin.svg");
+}
+
+.ltc-icon {
+  background-image: url("/static/img/litecoin.svg");
+}
+
+.eth-icon {
+  background-image: url("/static/img/etherum.svg");
+}
+
+footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

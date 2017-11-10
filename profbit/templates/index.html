@@ -2,11 +2,20 @@
 {% block main %}
 <div class="section no-pad-bot" id="index-banner">
   <div class="container">
-    <br><br>
-    <div class="row center">
-      <a href="/login/coinbase/?remember_me=1" class="btn-large waves-effect waves-light light-blue">Login with Coinbase</a>
+    <div class="row valign-wrapper">
+      <div class="col s6">
+        <h2 class="header black-text">See your Coinbase profits.</h2>
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('stats') }}" class="btn-large waves-effect waves-light light-blue accent-4">View My Stats</a>
+        {% else %}
+          <a href="{{ config.LOGIN_URL }}" class="btn-large waves-effect waves-light light-blue accent-4">Login with Coinbase</a>
+        {% endif %}
+      </div>
+      <div class="col s6">
+        <!-- TODO(joshblum) change this lol -->
+        <img class="demo-image" src="https://d2ue93q3u507c2.cloudfront.net/assets/marketing/images/home_redesign/Web_laptop.png"/>
+      </div>
     </div>
-    <br><br>
   </div>
 </div>
 </div>

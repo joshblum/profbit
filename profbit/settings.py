@@ -6,6 +6,9 @@ FLASK_DEBUG = not IS_HEROKU
 DATABASE_URL = os.environ.get('DATABASE_URL', '/tmp/profbit.db')
 SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
 
+# For templates
+LOGIN_URL = "/login/coinbase/?remember_me=1"
+
 # Flask Login
 SESSION_COOKIE_NAME = 'psa_session'
 SESSION_PROTECTION = 'strong'
@@ -19,7 +22,7 @@ SOCIAL_AUTH_COINBASE_KEY = os.environ.get('SOCIAL_AUTH_COINBASE_KEY', '')
 SOCIAL_AUTH_COINBASE_SECRET = os.environ.get('SOCIAL_AUTH_COINBASE_SECRET', '')
 SOCIAL_AUTH_COINBASE_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_COINBASE_SCOPE = [
-    'wallet:accounts:read', 'wallet:transactions:read']
+        'wallet:accounts:read', 'wallet:transactions:read', 'wallet:user:read']
 SOCIAL_AUTH_COINBASE_AUTH_EXTRA_ARGUMENTS = {
         'account': 'all',
         'referral': '5943d0d36785cd04ad5c2d25',
