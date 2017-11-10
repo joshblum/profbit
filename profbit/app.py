@@ -91,7 +91,12 @@ def inject_user():
 
 @app.context_processor
 def utility_processor():
+
+    def _abs(number):
+        return abs(number)
+
     def format_price(amount, currency_code='USD'):
         symbol = CURRENCY_MAP.get(currency_code, '$')
         return u'{0}{1:,.2f}'.format(symbol, amount)
-    return dict(format_price=format_price)
+
+    return dict(format_price=format_price, abs=_abs)

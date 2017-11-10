@@ -29,11 +29,11 @@
                 <span class="investment-amount"> {{ format_price(investment, native_currency) }} </span>
                 <span class="vertical-divider"></span>
                 <span class="investment-amount">
-                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ format_price(return_investment, native_currency) }}
+                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ format_price(abs(return_investment), native_currency) }}
                 </span>
                 <span class="vertical-divider"></span>
                 <span class="investment-amount">
-                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ "%.2f"|format(return_percent) }}%
+                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ "%.2f"|format(abs(return_percent)) }}%
                 </span>
               </div>
               {% endwith %}
