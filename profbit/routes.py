@@ -65,7 +65,7 @@ def page_not_found(e):
 
 @app.errorhandler(Exception)
 @app.errorhandler(500)
-def internal_server_error(error):
+def internal_server_error(e):
     context = {
         'error_title': 500,
         'page_title': '500 Internal Server Error',
