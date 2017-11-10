@@ -3,11 +3,15 @@ import os
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 IS_HEROKU = os.environ.get('IS_HEROKU', False)
 FLASK_DEBUG = not IS_HEROKU
-SESSION_COOKIE_NAME = 'psa_session'
 DATABASE_URL = os.environ.get('DATABASE_URL', '/tmp/profbit.db')
 SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
 
+# Flask Login
+SESSION_COOKIE_NAME = 'psa_session'
 SESSION_PROTECTION = 'strong'
+USE_SESSION_FOR_NEXT = True
+
+# Social Auth
 SOCIAL_AUTH_COINBASE_GET_ALL_EXTRA_DATA = True
 SOCIAL_AUTH_REMEMBER_SESSION_NAME = 'remember_me'
 SOCIAL_AUTH_FIELDS_STORED_IN_SESSION = ['remember_me']

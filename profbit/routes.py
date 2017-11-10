@@ -1,5 +1,6 @@
 from flask import g
 from flask import jsonify
+from flask import redirect
 from flask import render_template
 from flask_login import login_required
 from flask_login import logout_user
@@ -42,10 +43,7 @@ def stats_api():
 def logout():
     """Logout view"""
     logout_user()
-    return jsonify({
-        'success': True,
-    })
-
+    return redirect('/')
 
 @app.errorhandler(403)
 def forbidden(e):
@@ -63,7 +61,6 @@ def page_not_found(e):
                            ), 404
 
 
-@app.errorhandler(Exception)
 @app.errorhandler(500)
 def internal_server_error(e):
     context = {
