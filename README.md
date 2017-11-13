@@ -20,7 +20,7 @@ pipenv shell
 
 ### Server Config
 You will first have [register an application on
-Coinbase](https://coinbase.com/oauth/applications). When registering your app
+Coinbase](https://coinbase.com/oauth/applications/new). When registering your app
 be sure to add the redirect url i.e.
 https://app-name.herokuapp.com/complete/coinbase/. Then `export` the following
 configuration variables and create the database:
