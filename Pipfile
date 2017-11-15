@@ -14,7 +14,7 @@ isort = "*"
 
 [packages]
 
-coinbase = "*"
+coinbase = {git = "git://github.com/joshblum/coinbase-python.git"}
 flask = "*"
 social-auth-app-flask-peewee = "*"
 flask-login = "*"
@@ -22,3 +22,4 @@ gunicorn = "*"
 "psycopg2" = "*"
 werkzeug = "*"
 raven = {extras = ["flask"]}
+python-dateutil = "*"

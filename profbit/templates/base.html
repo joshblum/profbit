@@ -8,6 +8,8 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/materialize.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  {% block extra_styles %}
+  {% endblock %}
   <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
@@ -64,6 +66,8 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+  {% block extra_scripts %}
+  {% endblock %}
   <script src="{{ url_for('static', filename='js/init.js') }}"></script>
 
   </body>

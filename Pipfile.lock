@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ff495bbb774cd5e009e4821fa097ee108618d5d3d97928766b3c65001debb010"
+            "sha256": "113091e8e50bf69bcbd5e0b06ab599f0e1034b8eb5eb6932403d6dc3f0abc6b1"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -9,9 +9,9 @@
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "4.4.0-1038-aws",
+            "platform_release": "4.4.0-1039-aws",
             "platform_system": "Linux",
-            "platform_version": "#47-Ubuntu SMP Thu Sep 28 20:05:35 UTC 2017",
+            "platform_version": "#48-Ubuntu SMP Wed Oct 11 15:15:01 UTC 2017",
             "python_full_version": "3.5.4",
             "python_version": "3.5",
             "sys_platform": "linux"
@@ -55,11 +55,7 @@
             "version": "==6.7"
         },
         "coinbase": {
-            "hashes": [
-                "sha256:e1d2c9365a1f0ed6a47a813f166adfbe6f69624986281400e7d0ec28f3dca116",
-                "sha256:d543eb8ba2e82ce33a457d2af9f58e373f0bd46d4f1f42fe8bec56a8ca00a166"
-            ],
-            "version": "==2.0.6"
+            "git": "git://github.com/joshblum/coinbase-python.git"
         },
         "defusedxml": {
             "hashes": [
@@ -163,18 +159,19 @@
             ],
             "version": "==2.7.3.2"
         },
-        "pycrypto": {
-            "hashes": [
-                "sha256:f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c"
-            ],
-            "version": "==2.6.1"
-        },
         "pyjwt": {
             "hashes": [
                 "sha256:a4e5f1441e3ca7b382fd0c0b416777ced1f97c64ef0c33bfa39daf38505cfd2f",
                 "sha256:500be75b17a63f70072416843dc80c8821109030be824f4d14758f114978bae7"
             ],
             "version": "==1.5.3"
+        },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:95511bae634d69bc7329ba55e646499a842bc4ec342ad54a8cdb65645a0aad3c",
+                "sha256:891c38b2a02f5bb1be3e4793866c8df49c7d19baabf9c1bad62547e0b4866aca"
+            ],
+            "version": "==2.6.1"
         },
         "python3-openid": {
             "hashes": [
