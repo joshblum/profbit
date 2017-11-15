@@ -11,7 +11,6 @@ LOGIN_URL = "/login/coinbase/?remember_me=1"
 
 # Flask Login
 SESSION_COOKIE_NAME = 'psa_session'
-SESSION_PROTECTION = 'strong'
 USE_SESSION_FOR_NEXT = True
 
 # Social Auth

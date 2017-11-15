@@ -99,4 +99,7 @@ def utility_processor():
         symbol = CURRENCY_MAP.get(currency_code, '$')
         return u'{0}{1:,.2f}'.format(symbol, amount)
 
-    return dict(format_price=format_price, abs=_abs)
+    return dict(
+        format_price=format_price,
+        abs=_abs,
+    )

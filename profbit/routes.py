@@ -28,8 +28,8 @@ def index():
 @app.route('/stats/')
 @login_required
 def stats():
-    stats = _get_stats()
-    return render_template('stats.html', stats=stats)
+    stat_data = _get_stats()
+    return render_template('stats.html', stat_data=stat_data)
 
 
 @app.route('/api/stats/')
