@@ -12,7 +12,6 @@ from social_flask.routes import social_auth
 from social_flask_peewee.models import FlaskStorage
 from social_flask_peewee.models import init_social
 
-from .currency_map import CURRENCY_MAP
 from .models import User
 from .models import database_proxy
 
@@ -87,6 +86,7 @@ def inject_user():
         return {'user': g.user}
     except AttributeError:
         return {'user': None}
+
 
 @app.context_processor
 def inject_sentry():

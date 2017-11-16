@@ -6,10 +6,11 @@ from dateutil.parser import parse
 
 from .currency_map import CURRENCY_MAP
 
+
 class StatTx():
 
     def __init__(self, date_time, currency_amount=0, currency_code='',
-            native_amount=0, native_currency_code=''):
+                 native_amount=0, native_currency_code=''):
         self.date_time = date_time
         self.currency_amount = currency_amount
         self.currency_code = currency_code
@@ -31,6 +32,7 @@ class StatTx():
                 '| {self.currency_code}{self.currency_amount} '
                 '@ {self.date_time}').format(self=self)
 
+
 class StatPeriod(Enum):
     ALL = 'all'
     YEAR = 'year'
@@ -39,8 +41,10 @@ class StatPeriod(Enum):
     DAY = 'day'
     HOUR = 'hour'
 
+
 def _get_currency_pair(crypto, native):
     return '{}-{}'.format(crypto, native)
+
 
 def _percent(investment, return_investment):
     if investment == 0:
@@ -49,10 +53,11 @@ def _percent(investment, return_investment):
         return_percent = return_investment / investment
     return return_percent * 100
 
+
 def _get_investment_data(client, account, period, stat_txs):
     historic_prices = list(reversed(client.get_historic_prices(
         currency_pair=_get_currency_pair(account.currency.code,
-            account.native_balance.currency),
+                                         account.native_balance.currency),
         period=period,
     ).prices))
 
@@ -62,7 +67,8 @@ def _get_investment_data(client, account, period, stat_txs):
         return stat_txs[index]
 
     def _get_roi_from_price_data(stat_tx, price_data):
-        return (float(price_data.price) * stat_tx.currency_amount) - stat_tx.native_amount
+        return ((float(price_data.price) * stat_tx.currency_amount) -
+                stat_tx.native_amount)
 
     period_begin_stat_tx = None
     period_begin_price_data = None
@@ -100,11 +106,15 @@ def _get_investment_data(client, account, period, stat_txs):
         }
         historic_investment_data.append(price_dict)
         period_end_price_data = price_data
-    period_begin_roi = _get_roi_from_price_data(period_begin_stat_tx, period_begin_price_data)
-    period_end_roi = _get_roi_from_price_data(period_end_stat_tx, period_end_price_data)
-    return_investment =  period_end_roi - period_begin_roi
-    return_percent = _percent(period_end_stat_tx.native_amount, return_investment)
-    total_investment = (period_end_stat_tx - period_begin_stat_tx).native_amount
+    period_begin_roi = _get_roi_from_price_data(
+        period_begin_stat_tx, period_begin_price_data)
+    period_end_roi = _get_roi_from_price_data(
+        period_end_stat_tx, period_end_price_data)
+    return_investment = period_end_roi - period_begin_roi
+    return_percent = _percent(
+        period_end_stat_tx.native_amount, return_investment)
+    total_investment = (period_end_stat_tx -
+                        period_begin_stat_tx).native_amount
     return {
         'period_investment_data': {
             'total_investment': total_investment,
@@ -114,10 +124,11 @@ def _get_investment_data(client, account, period, stat_txs):
         'historic_investment_data': historic_investment_data,
     }
 
+
 def _get_stat_txs(client, account):
     """
-    Calculates the total ROI for the given `account` in addition to the historic
-    progress.
+    Calculates the total ROI for the given `account` in addition to the
+    historic progress.
     """
     coinbase_txs = client.get_transactions(account.id, order='asc')
     stat_txs = []
@@ -125,15 +136,15 @@ def _get_stat_txs(client, account):
         if coinbase_tx.status != 'completed':
             continue
         stat_tx = StatTx(
-                date_time=parse(coinbase_tx.created_at),
-                    currency_amount=float(coinbase_tx.amount.amount),
-                    currency_code=account.currency.code,
-                    native_amount=float(coinbase_tx.native_amount.amount),
-                    native_currency_code=account.native_balance.currency,
-                    )
+            date_time=parse(coinbase_tx.created_at),
+            currency_amount=float(coinbase_tx.amount.amount),
+            currency_code=account.currency.code,
+            native_amount=float(coinbase_tx.native_amount.amount),
+            native_currency_code=account.native_balance.currency,
+        )
         if i != 0:
             # Keep a running sum of our total to compare to historical data.
-            stat_tx += stat_txs[i-1]
+            stat_tx += stat_txs[i - 1]
         stat_txs.append(stat_tx)
     return stat_txs
 
@@ -154,7 +165,8 @@ def get_coinbase_stats(access_token):
         investment_data = {}
         for stat_period in StatPeriod:
             period = stat_period.value
-            investment_data[period] = _get_investment_data(client, account, period, stat_txs)
+            investment_data[period] = _get_investment_data(
+                client, account, period, stat_txs)
         currency_code = account.currency.code
         stats[currency_code] = investment_data
     native_currency = user.native_currency
