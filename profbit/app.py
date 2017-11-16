@@ -1,6 +1,5 @@
 from urllib import parse
 
-
 from flask import Flask
 from flask import g
 from flask import redirect
