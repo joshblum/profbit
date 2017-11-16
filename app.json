@@ -5,7 +5,7 @@
   "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],
   "logo": "http://TODO.com",
   "website": "http://TODO.com",
-  "success_url": "/login/coinbase",
+  "success_url": "/",
   "scripts": {
     "postdeploy": "FLASK_APP=profbit/app.py flask syncdb"
   },
@@ -27,7 +27,8 @@
     },
     "SENTRY_PRIVATE_DSN": {
       "description": "If you would like to use sentry to record errors, record your private DSN here. https://sentry.i://docs.sentry.io/quickstart/#about-the-dsn.",
-      "value": "Optional"
+      "value": "Optional",
+      "required": false
     },
     "IS_HEROKU": {
       "description": "Signals that the server is running on Heroku.",
