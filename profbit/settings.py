@@ -4,14 +4,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 IS_HEROKU = os.environ.get('IS_HEROKU', False)
 FLASK_DEBUG = not IS_HEROKU
 DATABASE_URL = os.environ.get('DATABASE_URL', '/tmp/profbit.db')
-SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
+SENTRY_PUBLIC_DSN = os.environ.get('SENTRY_PUBLIC_DSN', '')
 
 # For templates
 LOGIN_URL = "/login/coinbase/?remember_me=1"
 
 # Flask Login
 SESSION_COOKIE_NAME = 'psa_session'
-SESSION_PROTECTION = 'strong'
 USE_SESSION_FOR_NEXT = True
 
 # Social Auth

@@ -1,47 +1,136 @@
 {% extends "base.html" %}
 
+{% block page_title %} Profbit - My Stats {%endblock %}
+
+{% block extra_styles %}
+  <link href="{{ url_for('static', filename='css/stats.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+{% endblock %}
+
 {% block main %}
-<div class="valign-wrapper stats-container container">
-  <div class="row">
-    {% for stat_dict in stats if stat_dict['name'] != 'USD' %}
-        <div class="col center s6">
-          <div class="card white z-depth-3">
-            <div class="card-content black-text">
-              {% with name=stat_dict["name"],
-              native_currency=stat_dict["native_currency"],
-              investment=stat_dict["investment"],
-              return_investment=stat_dict["return_investment"],
-              return_percent=stat_dict["return_percent"] %}
-              {% if return_investment > 0 %}
-                {% set gains="positive" %}
-                {% set gains_symbol="+" %}
-              {% else %}
-                {% set gains="negative" %}
-                {% set gains_symbol="-" %}
-              {% endif %}
-              <div class="card-title">
-                <div class="valign-wrapper flex-center">
-                  <span class="currency-icon {{ name |lower}}-icon"></span>
-                  <span>{{ name }}</span>
-                </div>
-              </div>
-              <div class="flow-text">
-                <span class="investment-amount"> {{ format_price(investment, native_currency) }} </span>
-                <span class="vertical-divider"></span>
-                <span class="investment-amount">
-                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ format_price(abs(return_investment), native_currency) }}
-                </span>
-                <span class="vertical-divider"></span>
-                <span class="investment-amount">
-                  <span class="{{ gains }}-gains">{{ gains_symbol }}</span>{{ "%.2f"|format(abs(return_percent)) }}%
-                </span>
-              </div>
-              {% endwith %}
-            </div>
-          </div>
-        </div>
-    {% endfor %}
+<div class="preloader-container container valign-wrapper flex-center">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer spinner-red">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer spinner-yellow">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer spinner-green">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="stats-container container">
+  <div class="row">
+    <div class="col s8">
+      <ul id="currencyTabs" class="tabs">
+        <li class="tab col s2">
+          <a data-currency="BTC" class="valign-wrapper flex-center">
+            <span class="BTC-icon currency-icon"></span>
+          </a>
+        </li>
+        <li class="tab col s2">
+          <a data-currency="ETH" class="valign-wrapper flex-center">
+            <span class="ETH-icon currency-icon"></span>
+          </a>
+        </li>
+        <li class="tab col s2">
+          <a data-currency="LTC" class="valign-wrapper flex-center">
+            <span class="LTC-icon currency-icon"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col s4">
+      <ul id="periodTabs" class="tabs">
+        <li class="tab col s2"><a data-period="hour">1h</a></li>
+        <li class="tab col s2"><a data-period="day">1d</a></li>
+        <li class="tab col s2"><a data-period="week">1w</a></li>
+        <li class="tab col s2"><a data-period="month">1m</a></li>
+        <li class="tab col s2"><a data-period="year">1y</a></li>
+        <li class="tab col s2"><a data-period="all">all</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row no-margin center flow-text">
+    <div class="col s2 investment-container border-right">
+        <span id="periodInvestment" class="investment-amount"></span>
+        <span class="investment-description">invested</span>
+    </div>
+    <div class="col s2 investment-container border-right">
+        <span id="periodReturnInvestment" class="investment-amount">
+        </span>
+        <span class="investment-description"></span>
+    </div>
+    <div class="col s2 investment-container">
+        <span id="periodReturnPercent" class="investment-amount">
+        </span>
+        <span class="investment-description"></span>
+    </div>
+
+    <div class="col s2 push-s1 investment-container total-investment-container border-right">
+        <span id="totalInvestment" class="investment-amount">
+        </span>
+        <span class="investment-total investment-description"> invested</span>
+    </div>
+    <div class="col s2 push-s1 investment-container total-investment-container border-right">
+        <span id="totalReturnInvestment" class="investment-amount">
+        </span>
+        <span class="investment-total investment-description"></span>
+    </div>
+    <div class="col s2 push-s1 total-investment-container investment-container">
+        <span id="totalReturnPercent" class="investment-amount">
+        </span>
+        <span class="investment-total investment-description"></span>
+    </div>
+  </div>
+  <div class="row center">
+    <div id="periodDescription" class="col s6 flex-text small-caps">
+    </div>
+  </div>
+  <div class="row">
+    <div class="chart-container col s12">
+        <canvas id="historicDataChart"></canvas>
+    </div>
+  </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/libs/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/libs/Chart.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/libs/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
 {% endblock %}

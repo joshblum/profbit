@@ -12,14 +12,13 @@ from social_flask.routes import social_auth
 from social_flask_peewee.models import FlaskStorage
 from social_flask_peewee.models import init_social
 
-from .currency_map import CURRENCY_MAP
 from .models import User
 from .models import database_proxy
 
 app = Flask(__name__)
 app.config.from_object('profbit.settings')
 
-if not app.debug and app.config.get('SENTRY_DSN'):
+if not app.debug and app.config.get('SENTRY_PRIVATE_DSN'):
     sentry = Sentry(app)
 else:
     sentry = None
@@ -90,13 +89,7 @@ def inject_user():
 
 
 @app.context_processor
-def utility_processor():
-
-    def _abs(number):
-        return abs(number)
-
-    def format_price(amount, currency_code='USD'):
-        symbol = CURRENCY_MAP.get(currency_code, '$')
-        return u'{0}{1:,.2f}'.format(symbol, amount)
-
-    return dict(format_price=format_price, abs=_abs)
+def inject_sentry():
+    if sentry:
+        return {'public_dsn': sentry.client.get_public_dsn('https')}
+    return {}
