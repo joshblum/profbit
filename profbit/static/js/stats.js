@@ -150,9 +150,12 @@ function render() {
   $('#periodDescription').text(getPeriodDescription(period));
 }
 
-function initData() {
-  $('.preloader-container').show();
-  $('.stats-container').hide();
+function initData(showLoad) {
+  showLoad = showLoad || false;
+  if (showLoad) {
+    $('.preloader-container').show();
+    $('.stats-container').hide();
+  }
   $.get('/api/stats/', function(statData) {
     for (var currency in statData.stats) {
       for (var period in statData.stats[currency]) {
@@ -181,16 +184,20 @@ function initData() {
     cfg = getChartConfig([]);
     window.profbitContext.chart = new Chart(ctx, cfg);
     render();
-    $('.preloader-container').hide();
-    $('.stats-container').show();
-    // https://github.com/Dogfalo/materialize/issues/2102
-    window.dispatchEvent(new Event('resize'));
+    if (showLoad) {
+      $('.preloader-container').hide();
+      $('.stats-container').show();
+      // https://github.com/Dogfalo/materialize/issues/2102
+      window.dispatchEvent(new Event('resize'));
+    }
   });
 }
 
 $(function() {
-  initData();
+  initData(/*showLoad=*/ true);
   $('ul.tabs').tabs({
     onShow: render,
   });
+  // Poll for new data every 30seconds
+  setInterval(initData, 30 * 1000);
 }); // end of document ready

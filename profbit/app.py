@@ -18,6 +18,10 @@ from .models import database_proxy
 app = Flask(__name__)
 app.config.from_object('profbit.settings')
 
+# Manually enable when profiling
+# from werkzeug.contrib.profiler import ProfilerMiddleware
+# app.wsgi_app = ProfilerMiddleware(app.wsgi_app, sort_by=('cumtime',))
+
 if not app.debug and app.config.get('SENTRY_PRIVATE_DSN'):
     sentry = Sentry(app)
 else:

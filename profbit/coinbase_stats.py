@@ -1,10 +1,20 @@
+import datetime
+import re
 from copy import copy
 from enum import Enum
 
 from coinbase.wallet.client import OAuthClient
-from dateutil.parser import parse
 
 from .currency_map import CURRENCY_MAP
+
+TIMESTAMP_REGEX = re.compile(
+    r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})')
+
+
+def parse_datetime(date_time):
+    # https://stackoverflow.com/a/14163523/1213319
+    return datetime.datetime(
+            *map(int, TIMESTAMP_REGEX.match(date_time).groups()))
 
 
 class StatTx():
@@ -99,7 +109,7 @@ def _get_investment_data(client, account, period, stat_txs):
     historic_investment_data = []
 
     for price_data in historic_prices:
-        date_time = parse(price_data.time)
+        date_time = parse_datetime(price_data.time)
         # Find first tx that is after this `price_data`
         while next_stat_tx and date_time >= next_stat_tx.date_time:
             curr_stat_tx = next_stat_tx
@@ -155,7 +165,7 @@ def _get_stat_txs(client, account):
         if coinbase_tx.status != 'completed':
             continue
         stat_tx = StatTx(
-            date_time=parse(coinbase_tx.created_at),
+            date_time=parse_datetime(coinbase_tx.created_at),
             currency_amount=float(coinbase_tx.amount.amount),
             currency_code=account.currency.code,
             native_amount=float(coinbase_tx.native_amount.amount),
