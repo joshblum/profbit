@@ -8,6 +8,10 @@ from .currency_map import CURRENCY_MAP
 
 
 class StatTx():
+    """
+    Store information about a Coinbase transaction to compute against
+    historical data.
+    """
 
     def __init__(self, date_time, currency_amount=0, currency_code='',
                  native_amount=0, native_currency_code=''):
@@ -34,6 +38,9 @@ class StatTx():
 
 
 class StatPeriod(Enum):
+    """
+    Periods which we can historical day for.
+    """
     ALL = 'all'
     YEAR = 'year'
     MONTH = 'month'
@@ -42,8 +49,11 @@ class StatPeriod(Enum):
     HOUR = 'hour'
 
 
-def _get_currency_pair(crypto, native):
-    return '{}-{}'.format(crypto, native)
+def _get_currency_pair(currency, native):
+    """
+    Format a crypto currency with a native one for the Coinbase API.
+    """
+    return '{}-{}'.format(currency, native)
 
 
 def _percent(investment, return_investment):
@@ -55,11 +65,16 @@ def _percent(investment, return_investment):
 
 
 def _get_investment_data(client, account, period, stat_txs):
-    historic_prices = list(reversed(client.get_historic_prices(
+    """
+    Get historic price data for the given `period` and `account`'s `currency`.
+    We calculate how much our investment gained or lost at each historic
+    data-point. We also calculate total stats for the period.
+    """
+    historic_prices = reversed(client.get_historic_prices(
         currency_pair=_get_currency_pair(account.currency.code,
                                          account.native_balance.currency),
         period=period,
-    ).prices))
+    ).prices)
 
     def _next_tx(index):
         if index >= len(stat_txs):
@@ -82,6 +97,7 @@ def _get_investment_data(client, account, period, stat_txs):
     curr_index += 1
     next_stat_tx = _next_tx(curr_index)
     historic_investment_data = []
+
     for price_data in historic_prices:
         date_time = parse(price_data.time)
         # Find first tx that is after this `price_data`
@@ -93,6 +109,7 @@ def _get_investment_data(client, account, period, stat_txs):
             roi = 0
         else:
             roi = _get_roi_from_price_data(curr_stat_tx, price_data)
+
         if period_begin_stat_tx is None and period_begin_price_data is None:
             if roi == 0:
                 period_begin_stat_tx = StatTx(price_data.time, 0, 0)
@@ -100,12 +117,14 @@ def _get_investment_data(client, account, period, stat_txs):
                 period_begin_stat_tx = copy(curr_stat_tx)
             period_begin_price_data = price_data
 
-        price_dict = {
+        historic_investment_data.append({
             'x': int(date_time.strftime('%s')),
             'y': roi,
-        }
-        historic_investment_data.append(price_dict)
+        })
+
+        # Get the final datapoint in the iterator.
         period_end_price_data = price_data
+
     period_begin_roi = _get_roi_from_price_data(
         period_begin_stat_tx, period_begin_price_data)
     period_end_roi = _get_roi_from_price_data(
@@ -127,8 +146,8 @@ def _get_investment_data(client, account, period, stat_txs):
 
 def _get_stat_txs(client, account):
     """
-    Calculates the total ROI for the given `account` in addition to the
-    historic progress.
+    Gather all transactions for the given `account` from Coinbase.  Calculate
+    the cumulative sum across the ordered transactions
     """
     coinbase_txs = client.get_transactions(account.id, order='asc')
     stat_txs = []
@@ -151,7 +170,7 @@ def _get_stat_txs(client, account):
 
 def get_coinbase_stats(access_token):
     """
-    Gather all of the transaction data across all accounts
+    Get historical investment data across all accounts.
     """
     client = OAuthClient(access_token, access_token)
     user = client.get_current_user()

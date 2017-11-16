@@ -1,3 +1,39 @@
+function formatPercent(value) {
+  return value.toFixed(2) + '%';
+}
+
+function formatCurrency(value, applyAbs) {
+  return window.profbitContext.currencyFormatter.format(value);
+}
+
+function getColorConfig(currency) {
+  return {
+    BTC: {
+      line: '#ffb119',
+      background: '#ffecc6',
+    },
+    ETH: {
+      line: '#6f7cba',
+      background: '#e4e7f2',
+    },
+    LTC: {
+      line: '#b5b5b5',
+      background: '#ececec',
+    }
+  }[currency];
+}
+
+function getPeriodDescription(period) {
+  return {
+    'hour': 'in the past hour',
+    'day': 'since yesterday',
+    'week': 'since last week',
+    'month': 'since last month',
+    'year': 'since last year',
+    'all': 'total',
+  }[period];
+}
+
 function getChartConfig(graphData) {
   return {
     type: 'line',
@@ -27,7 +63,7 @@ function getChartConfig(graphData) {
         position: 'nearest',
         callbacks: {
           beforeLabel: function(tooltipItem, data) {
-            tooltipItem.yLabel = window.profbitContext.currencyFormatter.format(tooltipItem.yLabel);
+            tooltipItem.yLabel = formatCurrency(tooltipItem.yLabel);
           },
         },
       },
@@ -62,23 +98,6 @@ function getChartConfig(graphData) {
   };
 }
 
-function getColorConfig(currency) {
-  return {
-    BTC: {
-      line: '#ffb119',
-      background: '#ffecc6',
-    },
-    ETH: {
-      line: '#6f7cba',
-      background: '#e4e7f2',
-    },
-    LTC: {
-      line: '#b5b5b5',
-      background: '#ececec',
-    }
-  }[currency];
-}
-
 function getGainsData(value) {
   var gainsData = {}
   if (value > 0) {
@@ -98,14 +117,6 @@ function getGainsData(value) {
   return gainsData;
 }
 
-function formatPercent(value) {
-  return value.toFixed(2) + '%';
-}
-
-function formatCurrency(value, applyAbs) {
-  return window.profbitContext.currencyFormatter.format(value);
-}
-
 function renderGains(selector, value, isPercent) {
   var gainsData = getGainsData(value);
   value = Math.abs(value);
@@ -114,18 +125,7 @@ function renderGains(selector, value, isPercent) {
   $(selector).siblings('.investment-description').text(gainsData.description);
 }
 
-function getPeriodDescription(period) {
-  return {
-    'hour': 'in the past hour',
-    'day': 'since yesterday',
-    'week': 'since last week',
-    'month': 'since last month',
-    'year': 'since last year',
-    'all': 'total',
-  }[period];
-}
-
-function renderData() {
+function render() {
   var currency = $('#currencyTabs').find('.active').data('currency');
   var period = $('#periodTabs').find('.active').data('period');
   var investmentData = window.profbitContext.stats[currency];
@@ -180,7 +180,7 @@ function initData() {
     var ctx = document.getElementById('historicDataChart').getContext('2d');
     cfg = getChartConfig([]);
     window.profbitContext.chart = new Chart(ctx, cfg);
-    renderData();
+    render();
     $('.preloader-container').hide();
     $('.stats-container').show();
     // https://github.com/Dogfalo/materialize/issues/2102
@@ -191,6 +191,6 @@ function initData() {
 $(function() {
   initData();
   $('ul.tabs').tabs({
-    onShow: renderData,
+    onShow: render,
   });
 }); // end of document ready
