@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block extra_styles %}
+  <link href="{{ url_for('static', filename='css/stats.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+{% endblock %}
+
 {% block main %}
 <div class="section no-pad-bot" id="index-banner">
   <div class="container">

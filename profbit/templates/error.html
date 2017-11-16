@@ -15,13 +15,11 @@
 </div>
 
 {% if event_id %}
-  <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js"></script>
-
   <script>
     Raven.showReportDialog(
     {
       eventId: '{{ event_id }}',
-      dsn: '{{ public_dsn }}'
+      dsn: '{{ sentry_public_dsn }}'
     });
   </script>
 {% endif %}

@@ -8,9 +8,9 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/materialize.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
   {% block extra_styles %}
   {% endblock %}
-  <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
   <nav class="light-blue accent-4" role="navigation">
@@ -61,14 +61,18 @@
     </div>
   </footer>
 
-
   <!--  Scripts-->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/lib/jquery-3.2.1.min.js') }}"></script>
+  {% if sentry_public_dsn %}
+    <script src="https://cdn.ravenjs.com/3.20.0/raven.min.js" crossorigin="anonymous"></script>
+    <script type="text-javascript">
+        Raven.config({{ sentry_public_dsn }}).install();
+    </script>
+  {% endif %}
+  <script src="{{ url_for('static', filename='js/lib/materialize.min.js') }}"></script>
   {% block extra_scripts %}
   {% endblock %}
   <script src="{{ url_for('static', filename='js/init.js') }}"></script>
-
   </body>
 </html>

@@ -1,0 +1,73 @@
+#currencyTabs li a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.preloader-container {
+  height: 80vh;
+}
+
+.stats-container {
+  flex-direction: column;
+  padding-top: 5px;
+}
+
+.chart-container {
+  position: relative;
+}
+
+.gains {
+  display: inline-block !important;
+}
+
+.positive-gains {
+  color: #61CA00;
+}
+
+.negative-gains {
+  color: #f44336;
+}
+
+.investment-container span {
+  display: block;
+}
+
+.investment-amount {
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.investment-description {
+  font-size: .9rem;
+  font-variant-caps: small-caps;
+}
+
+.investment-total:before {
+  content: "total ";
+}
+
+.currency-icon {
+  width: 24px;
+  height: 24px;
+  margin: 5px;
+  background-color: white;
+  display: inline-block;
+}
+
+.total-icon {
+  background-image: url("/static/img/total.svg");
+}
+
+.BTC-icon {
+  background-image: url("/static/img/bitcoin.svg");
+}
+
+.ETH-icon {
+  background-image: url("/static/img/etherum.svg");
+}
+
+.LTC-icon {
+  background-image: url("/static/img/litecoin.svg");
+}

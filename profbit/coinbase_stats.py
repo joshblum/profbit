@@ -1,3 +1,4 @@
+from copy import copy
 from enum import Enum
 
 from coinbase.wallet.client import OAuthClient
@@ -65,7 +66,7 @@ def _get_investment_data(client, account, period, stat_txs):
 
     period_begin_stat_tx = None
     period_begin_price_data = None
-    period_end_stat_tx = stat_txs[-1]
+    period_end_stat_tx = copy(stat_txs[-1])
     period_end_price_data = None
 
     curr_index = 0
@@ -75,7 +76,6 @@ def _get_investment_data(client, account, period, stat_txs):
     curr_index += 1
     next_stat_tx = _next_tx(curr_index)
     historic_investment_data = []
-#    import pdb; pdb.set_trace()
     for price_data in historic_prices:
         date_time = parse(price_data.time)
         # Find first tx that is after this `price_data`
@@ -91,7 +91,7 @@ def _get_investment_data(client, account, period, stat_txs):
             if roi == 0:
                 period_begin_stat_tx = StatTx(price_data.time, 0, 0)
             else:
-                period_begin_stat_tx = curr_stat_tx
+                period_begin_stat_tx = copy(curr_stat_tx)
             period_begin_price_data = price_data
 
         price_dict = {
@@ -100,12 +100,11 @@ def _get_investment_data(client, account, period, stat_txs):
         }
         historic_investment_data.append(price_dict)
         period_end_price_data = price_data
-
-    total_investment = (period_end_stat_tx - period_begin_stat_tx).native_amount
     period_begin_roi = _get_roi_from_price_data(period_begin_stat_tx, period_begin_price_data)
     period_end_roi = _get_roi_from_price_data(period_end_stat_tx, period_end_price_data)
     return_investment =  period_end_roi - period_begin_roi
-    return_percent = _percent(total_investment, return_investment)
+    return_percent = _percent(period_end_stat_tx.native_amount, return_investment)
+    total_investment = (period_end_stat_tx - period_begin_stat_tx).native_amount
     return {
         'period_investment_data': {
             'total_investment': total_investment,
@@ -157,11 +156,7 @@ def get_coinbase_stats(access_token):
             period = stat_period.value
             investment_data[period] = _get_investment_data(client, account, period, stat_txs)
         currency_code = account.currency.code
-        stats[currency_code] = {
-            'currency': currency_code,
-            'investment_data': investment_data,
-        }
-    stats = sorted(stats.values(), key=lambda x: x['currency'])
+        stats[currency_code] = investment_data
     native_currency = user.native_currency
     return {
         'stats': stats,

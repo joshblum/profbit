@@ -28,8 +28,7 @@ def index():
 @app.route('/stats/')
 @login_required
 def stats():
-    stat_data = _get_stats()
-    return render_template('stats.html', stat_data=stat_data)
+    return render_template('stats.html')
 
 
 @app.route('/api/stats/')
@@ -70,5 +69,4 @@ def internal_server_error(e):
     }
     if sentry:
         context['event_id'] = g.sentry_event_id
-        context['public_dsn'] = sentry.client.get_public_dsn('https')
     return render_template('error.html', **context), 500
