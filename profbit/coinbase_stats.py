@@ -1,11 +1,18 @@
+import re
+import datetime
+
 from copy import copy
 from enum import Enum
 
 from coinbase.wallet.client import OAuthClient
-from dateutil.parser import parse
 
 from .currency_map import CURRENCY_MAP
 
+TIMESTAMP_REGEX = re.compile(r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})')
+
+def parse(date_time):
+    # https://stackoverflow.com/a/14163523/1213319
+    return datetime.datetime(*map(int, TIMESTAMP_REGEX.match(date_time).groups()))
 
 class StatTx():
     """
