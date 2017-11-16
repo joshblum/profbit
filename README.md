@@ -32,6 +32,7 @@ export SECRET_KEY="super-secret-key"
 export SOCIAL_AUTH_COINBASE_KEY="coinbase-key"
 export SOCIAL_AUTH_COINBASE_SECRET="coinbase-secret"
 export FLASK_APP=app.py
+export FLASK_DEBUG=1
 
 flask syncdb
 ```
