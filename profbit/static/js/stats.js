@@ -150,7 +150,7 @@ function render() {
   $('#periodDescription').text(getPeriodDescription(period));
 }
 
-function initData(showLoad) {
+function getData(showLoad) {
   showLoad = showLoad || false;
   if (showLoad) {
     $('.preloader-container').show();
@@ -168,21 +168,25 @@ function initData(showLoad) {
         statData.stats[currency][period].historic_investment_data = historicInvestmentData;
       }
     }
-    window.profbitContext = {
-      nativeCurrency: statData.native_currency,
-      nativeCurrencySymbol: statData.native_currency_symbol,
-      stats: statData.stats,
-      currencyFormatter: new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: statData.native_currency,
-        minimumFractionDigits: 2,
-        // the default value for minimumFractionDigits depends on the currency
-        // and is usually already 2
-      }),
-    };
-    var ctx = document.getElementById('historicDataChart').getContext('2d');
-    cfg = getChartConfig([]);
-    window.profbitContext.chart = new Chart(ctx, cfg);
+    if (window.profbitContext) {
+      window.profbitContext.stats = statData.stats;
+    } else {
+      window.profbitContext = {
+        nativeCurrency: statData.native_currency,
+        nativeCurrencySymbol: statData.native_currency_symbol,
+        stats: statData.stats,
+        currencyFormatter: new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: statData.native_currency,
+          minimumFractionDigits: 2,
+          // the default value for minimumFractionDigits depends on the currency
+          // and is usually already 2
+        }),
+      };
+      var ctx = document.getElementById('historicDataChart').getContext('2d');
+      cfg = getChartConfig([]);
+      window.profbitContext.chart = new Chart(ctx, cfg);
+    }
     render();
     if (showLoad) {
       $('.preloader-container').hide();
@@ -194,10 +198,10 @@ function initData(showLoad) {
 }
 
 $(function() {
-  initData(/*showLoad=*/ true);
+  getData( /*showLoad=*/ true);
   $('ul.tabs').tabs({
     onShow: render,
   });
   // Poll for new data every 30seconds
-  setInterval(initData, 30 * 1000);
+  setInterval(getData, 30 * 1000);
 }); // end of document ready
