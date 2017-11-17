@@ -13,8 +13,8 @@
   {% endblock %}
 </head>
 <body>
-  <nav class="light-blue accent-4" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">Profbit</a>
+  <nav class="white border-bottom" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('index') }}" class="brand-logo black-text">Profbit</a>
       <ul class="right hide-on-med-and-down valign-wrapper">
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
@@ -37,16 +37,23 @@
   {% block main %}
   {% endblock %}
   </main>
-  <footer class="light-blue accent-4">
+  <footer class="white border-top">
     <div class="container">
-        <div class="col l6 s12 valign-wrapper right">
-        <a class="github-button" href="https://github.com/joshblum/profbit"
-          data-size="large" data-show-count="true" aria-label="Star
-          joshblum/profbit on GitHub">Star</a>
-        <a class="github-button"
-          href="https://github.com/joshblum/profbit/issues" data-size="large"
-          data-show-count="true" aria-label="Issue joshblum/profbit on
-        GitHub">Issue</a>
+      <div class="row no-margin valign-wrapper">
+        <div class="col l6 s12">
+          <span>© 2017 </span>
+          <span> / designed by <a class="lightgrey-text" target="_blank" href="https://twitter.com/cara1yn"> @cara1yn </a> </span>
+          <span> / developed by <a class="lightgrey-text" target="_blank" href="https://github.com/joshblum"> @joshblum </a> </span>
+        </div>
+          <div class="col l6 s12 github-buttons">
+          <a class="github-button" href="https://github.com/joshblum/profbit"
+            data-size="large" data-show-count="true" aria-label="Star
+            joshblum/profbit on GitHub">Star</a>
+          <a class="github-button"
+            href="https://github.com/joshblum/profbit/issues" data-size="large"
+            data-show-count="true" aria-label="Issue joshblum/profbit on
+          GitHub">Issue</a>
+        </div>
       </div>
     </div>
   </footer>
