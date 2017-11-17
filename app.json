@@ -26,7 +26,12 @@
       "value": "Get the secret after registering your app: https://coinbase.com/oauth/applications/new"
     },
     "SENTRY_PRIVATE_DSN": {
-      "description": "If you would like to use sentry to record errors, record your private DSN here. https://sentry.i://docs.sentry.io/quickstart/#about-the-dsn.",
+      "description": "If you would like to use Sentry to record errors, record your private DSN here. https://sentry.i://docs.sentry.io/quickstart/#about-the-dsn.",
+      "value": "Optional",
+      "required": false
+    },
+    "GOOGLE_ANALYTICS_ID": {
+      "description": "If you would like to use Google Analytics (homepage only) record your analytics id here. https://analytics.google.com",
       "value": "Optional",
       "required": false
     },

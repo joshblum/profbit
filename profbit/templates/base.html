@@ -16,12 +16,7 @@
   <nav class="light-blue accent-4" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">Profbit</a>
       <ul class="right hide-on-med-and-down valign-wrapper">
-        <li class="no-hover">
-          <a class="valign-wrapper" target="_blank" href="https://github.com/joshblum/profbit/">
-            <span class="social-icon github-icon"></span></a>
-        </li>
         {% if current_user.is_authenticated %}
-          <li><a href="{{ url_for('stats') }}">My Stats</a></li>
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
           <li><a href="{{ config.LOGIN_URL }}">Login</a></li>
@@ -29,12 +24,7 @@
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li class="no-hover">
-          <a id="github-mobile-nav" class="valign-wrapper" target="_blank" href="https://github.com/joshblum/profbit/">
-            <span class="black social-icon github-icon"></span></a>
-        </li>
         {% if current_user.is_authenticated %}
-          <li><a href="{{ url_for('stats') }}">My Stats</a></li>
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
           <li><a href="{{ config.LOGIN_URL }}">Login</a></li>
