@@ -11,6 +11,14 @@ main {
   flex: 1 0 auto;
 }
 
+nav {
+  box-shadow: none;
+}
+
+nav ul a {
+  color: black;
+}
+
 .tab {
   cursor: pointer;
 }
@@ -29,6 +37,14 @@ main {
 
 .border-left {
   border-left: 1px solid #DAE1E9;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #DAE1E9;
+}
+
+.border-top {
+  border-top: 1px solid #DAE1E9;
 }
 
 .no-margin {
@@ -59,4 +75,10 @@ main {
 footer {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.github-buttons iframe {
+  float: right;
+  margin-right: 2px;
+  margin-left: 2px;
 }
