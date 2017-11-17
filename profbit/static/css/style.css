@@ -31,10 +31,6 @@ main {
   border-left: 1px solid #DAE1E9;
 }
 
-.no-hover:hover {
-  background-color: transparent;
-}
-
 .no-margin {
   margin-bottom: 0px;
 }
