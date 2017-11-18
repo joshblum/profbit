@@ -22,26 +22,38 @@
   src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67"
 alt="Fork me on GitHub"
 data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-<div class="section no-pad-bot" id="index-banner">
+<div class="section valign-wrapper index-intro">
   <div class="container">
     <div class="row valign-wrapper">
-      <div class="col s6">
-        <h2 class="header black-text">See your Coinbase profits.</h2>
+      <div class="col s6 m4">
+        <div class="flow-text grey-text">
+          Track your bitcoin, ethereum, and litecoin gains and losses in one
+          place.
+        </div>
         {% if current_user.is_authenticated %}
           {% set cta_url=url_for('stats') %}
-          {% set cta_text="View My Stats" %}
+          {% set cta_text="My Stats" %}
         {% else %}
           {% set cta_url=config.LOGIN_URL %}
           {% set cta_text="Login with Coinbase" %}
         {% endif %}
-          <a href="{{ cta_url }}" class="btn-large waves-effect waves-light white black-text">{{ cta_text }}</a>
+          <a href="{{ cta_url }}" class="btn-large waves-effect waves-light profbit-blue white-text">{{ cta_text }}</a>
       </div>
       <div class="col s6">
         <!-- TODO(joshblum) change this lol -->
         <img class="demo-image" src="https://d2ue93q3u507c2.cloudfront.net/assets/marketing/images/home_redesign/Web_laptop.png"/>
       </div>
     </div>
+    </div>
   </div>
 </div>
+<div class="section center profbit-blue white-text index-banner valign-wrapper">
+  <div class="row no-margin">
+    <div class="col s12">
+      <div class="flow-text">
+        Easy, free, and completely open source.
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
