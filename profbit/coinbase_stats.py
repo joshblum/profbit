@@ -6,9 +6,11 @@ from enum import Enum
 import gevent
 from coinbase.wallet.client import OAuthClient
 from gevent import monkey
-monkey.patch_socket()
 
 from .currency_map import CURRENCY_MAP
+
+monkey.patch_socket()
+
 
 TIMESTAMP_REGEX = re.compile(
     r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})')
@@ -180,13 +182,15 @@ def _get_stat_txs(client, account):
         stat_txs.append(stat_tx)
     return stat_txs
 
+
 def _fetch_stats(client, account):
     stat_txs = _get_stat_txs(client, account)
 
     jobs = []
     for stat_period in StatPeriod:
         period = stat_period.value
-        jobs.append(gevent.spawn(_get_investment_data, client, account, period, stat_txs))
+        jobs.append(gevent.spawn(_get_investment_data,
+                                 client, account, period, stat_txs))
     gevent.joinall(jobs)
 
     investment_data = {}
