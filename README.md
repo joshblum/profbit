@@ -10,7 +10,9 @@ Find out what your Coinbase profits are!
 
 ### Requirements
 We use [Pipenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) to
-manage requirements.
+manage requirements. Note that Python 3.6.3 is required to [incorporate a
+fix](https://bugs.python.org/issue26721) for using [gevent and werkzeug
+together](https://github.com/pallets/werkzeug/issues/920).
 
 ```bash
 pip install pipenv
