@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/profbit
     docker:
-        - image: python:3.6.1
+        - image: python:3.6.3
     steps:
       - checkout
       - run: make installdeps
