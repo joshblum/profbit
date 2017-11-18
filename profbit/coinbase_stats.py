@@ -3,7 +3,10 @@ import re
 from copy import copy
 from enum import Enum
 
+import gevent
 from coinbase.wallet.client import OAuthClient
+from gevent import monkey
+monkey.patch_socket()
 
 from .currency_map import CURRENCY_MAP
 
@@ -144,7 +147,7 @@ def _get_investment_data(client, account, period, stat_txs):
         period_end_stat_tx.native_amount, return_investment)
     total_investment = (period_end_stat_tx -
                         period_begin_stat_tx).native_amount
-    return {
+    return period, {
         'period_investment_data': {
             'total_investment': total_investment,
             'return_investment': return_investment,
@@ -177,6 +180,22 @@ def _get_stat_txs(client, account):
         stat_txs.append(stat_tx)
     return stat_txs
 
+def _fetch_stats(client, account):
+    stat_txs = _get_stat_txs(client, account)
+
+    jobs = []
+    for stat_period in StatPeriod:
+        period = stat_period.value
+        jobs.append(gevent.spawn(_get_investment_data, client, account, period, stat_txs))
+    gevent.joinall(jobs)
+
+    investment_data = {}
+    for job in jobs:
+        period, period_investment_data = job.value
+        investment_data[period] = period_investment_data
+
+    return account.currency.code, investment_data
+
 
 def get_coinbase_stats(access_token):
     """
@@ -185,19 +204,19 @@ def get_coinbase_stats(access_token):
     client = OAuthClient(access_token, access_token)
     user = client.get_current_user()
     accounts = client.get_accounts()
-    stats = {}
+
+    jobs = []
     for account in accounts.data:
         if account.type != 'wallet':
             # TODO(joshblum): Look into other account types
             continue
-        stat_txs = _get_stat_txs(client, account)
-        investment_data = {}
-        for stat_period in StatPeriod:
-            period = stat_period.value
-            investment_data[period] = _get_investment_data(
-                client, account, period, stat_txs)
-        currency_code = account.currency.code
-        stats[currency_code] = investment_data
+        jobs.append(gevent.spawn(_fetch_stats, client, account))
+    gevent.joinall(jobs)
+
+    stats = {}
+    for job in jobs:
+        currency, investment_data = job.value
+        stats[currency] = investment_data
     native_currency = user.native_currency
     return {
         'stats': stats,
