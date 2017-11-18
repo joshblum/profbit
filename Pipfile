@@ -18,10 +18,12 @@ isort = "*"
 [packages]
 
 coinbase = {git = "git://github.com/joshblum/coinbase-python.git"}
-Flask = "*"
+flask = "*"
 social-auth-app-flask-peewee = "*"
-Flask-Login = "*"
+flask-login = "*"
 gunicorn = "*"
 "psycopg2" = "*"
-Werkzeug = "*"
+werkzeug = "*"
 raven = {extras = ["flask"]}
+greenlet = "*"
+gevent = "*"
