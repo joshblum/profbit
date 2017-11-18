@@ -11,11 +11,23 @@ main {
   flex: 1 0 auto;
 }
 
+.profbit-blue {
+  background-color: #0059AB !important;
+}
+
+.profbit-blue-text {
+  color: #0059AB !important;
+}
+
 nav {
   box-shadow: none;
 }
 
 nav ul a {
+  color: black;
+}
+
+nav a {
   color: black;
 }
 
@@ -77,8 +89,18 @@ footer {
   padding-bottom: 10px;
 }
 
+.copyright-text {
+  padding-bottom: 10px !important;
+}
+
 .github-buttons iframe {
   float: right;
   margin-right: 2px;
   margin-left: 2px;
+}
+
+@media only screen and (max-width: 425px) {
+  .copyright-text {
+    font-size: 10px !important;
+  }
 }

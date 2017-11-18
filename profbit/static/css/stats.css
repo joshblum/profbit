@@ -1,12 +1,33 @@
-#currencyTabs li a {
+.preloader-container {
+  height: 80vh;
+}
+
+.tabs .tab a {
+  color: rgba(0, 89, 171, 0.7);
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+  color: #0059AB !important;
+}
+
+.tabs .indicator {
+  background-color: #0059AB !important;
+}
+
+#currencyTabs .tabs .tab a {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.preloader-container {
-  height: 80vh;
+.tabs .tab a {
+  padding: 0px;
+}
+
+.tab-row {
+  margin-bottom: 40px;
 }
 
 .stats-container {
@@ -32,11 +53,6 @@
 
 .investment-container span {
   display: block;
-}
-
-.investment-amount {
-  margin-left: 7px;
-  margin-right: 7px;
 }
 
 .investment-description {

@@ -142,11 +142,6 @@ function render() {
   renderGains('#periodReturnInvestment', periodInvestmentData.return_investment);
   renderGains('#periodReturnPercent', periodInvestmentData.return_percent, /*isPercent=*/ true);
 
-  var totalInvestmentData = investmentData.all.period_investment_data;
-  $('#totalInvestment').text(formatCurrency(totalInvestmentData.total_investment));
-  renderGains('#totalReturnInvestment', totalInvestmentData.return_investment);
-  renderGains('#totalReturnPercent', totalInvestmentData.return_percent, /*isPercent=*/ true);
-
   $('#periodDescription').text(getPeriodDescription(period));
 }
 
