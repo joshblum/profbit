@@ -4,7 +4,7 @@
   "repository": "https://github.com/joshblum/profbit",
   "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],
   "logo": "http://TODO.com",
-  "website": "http://TODO.com",
+  "website": "https://www.profbit.info",
   "success_url": "/",
   "scripts": {
     "postdeploy": "FLASK_APP=profbit/app.py flask syncdb"
