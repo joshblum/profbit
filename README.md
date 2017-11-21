@@ -3,11 +3,10 @@
 
 Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 
-![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-0.png "profbit preview")
-![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-1.png "profbit preview")
-![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-2.png "profbit preview")
-![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-3.png "profbit preview")
-
+| | |
+|:-------------------------:|:-------------------------:|
+|<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-0.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-1.png"> | |
+<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-2.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-3.png"> |
 
 ## Development/Self-hosted Server Setup
 
