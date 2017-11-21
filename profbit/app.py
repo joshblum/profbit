@@ -96,5 +96,5 @@ def inject_user():
 @app.context_processor
 def inject_sentry():
     if sentry:
-        return {'public_dsn': sentry.client.get_public_dsn('https')}
+        return {'sentry_public_dsn': sentry.client.get_public_dsn('https')}
     return {}
