@@ -125,9 +125,14 @@ function renderGains(selector, value, isPercent) {
   $(selector).siblings('.investment-description').text(gainsData.description);
 }
 
-function render() {
-  var currency = $('#currencyTabs').find('.active').data('currency');
-  var period = $('#periodTabs').find('.active').data('period');
+function _renderCurrency(currency, periodInvestmentData) {
+  var selectorId = '#' + currency;
+  $(selectorId + '-Investment').text(formatCurrency(periodInvestmentData.total_investment));
+  renderGains(selectorId + '-ReturnInvestment', periodInvestmentData.return_investment);
+  renderGains(selectorId + '-ReturnPercent', periodInvestmentData.return_percent, /*isPercent=*/ true);
+}
+
+function renderHistoricDataContainer(currency, period) {
   var investmentData = window.profbitContext.stats[currency];
   var periodInvestmentData = investmentData[period].period_investment_data;
   var historicInvestmentData = investmentData[period].historic_investment_data;
@@ -138,11 +143,47 @@ function render() {
   window.profbitContext.chart.data.datasets[0].borderColor = colorConfig.line;
   window.profbitContext.chart.update();
 
-  $('#periodInvestment').text(formatCurrency(periodInvestmentData.total_investment));
-  renderGains('#periodReturnInvestment', periodInvestmentData.return_investment);
-  renderGains('#periodReturnPercent', periodInvestmentData.return_percent, /*isPercent=*/ true);
+  _renderCurrency('period', periodInvestmentData);
+  $('#period-Description').text(getPeriodDescription(period));
+}
 
-  $('#periodDescription').text(getPeriodDescription(period));
+function renderTotalDataContainer() {
+  var stats = window.profbitContext.stats;
+  var totalInvestmentData = {
+    total_investment: 0,
+    return_investment: 0,
+    return_percent: 0,
+  };
+  for (var currency in stats) {
+    var investmentData = stats[currency];
+    var periodInvestmentData = investmentData.all.period_investment_data;
+    totalInvestmentData.total_investment += periodInvestmentData.total_investment;
+    totalInvestmentData.return_investment += periodInvestmentData.return_investment;
+    totalInvestmentData.return_percent += periodInvestmentData.return_percent;
+    _renderCurrency(currency, periodInvestmentData);
+  }
+  _renderCurrency('total', totalInvestmentData);
+}
+
+function render() {
+  var currency = $('#currencyTabs').find('.active').data('currency');
+  var period = $('#periodTabs').find('.active').data('period');
+  $totalDataContainer = $('#totalDataContainer');
+  $historicDataContainer = $('#historicDataContainer');
+  $periodTabs = $('#periodTabs');
+  if (currency === 'total') {
+    $historicDataContainer.hide();
+    $periodTabs.hide();
+    renderTotalDataContainer();
+    $totalDataContainer.show();
+  } else {
+    $totalDataContainer.hide();
+    renderHistoricDataContainer(currency, period);
+    $periodTabs.show();
+    $historicDataContainer.show()
+    // https://github.com/Dogfalo/materialize/issues/2102
+    window.dispatchEvent(new Event('resize'));
+  }
 }
 
 function getData(showLoad) {
