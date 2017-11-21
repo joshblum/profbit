@@ -90,6 +90,9 @@ def _get_investment_data(client, account, period, stat_txs):
                                          account.native_balance.currency),
         period=period,
     ).prices)
+    stat_txs = stat_txs or [
+        StatTx(datetime.datetime.now(), currency_amount=0, native_amount=0)
+    ]
 
     def _next_tx(index):
         if index >= len(stat_txs):
@@ -127,7 +130,7 @@ def _get_investment_data(client, account, period, stat_txs):
 
         if period_begin_stat_tx is None and period_begin_price_data is None:
             if roi == 0:
-                period_begin_stat_tx = StatTx(price_data.time, 0, 0)
+                period_begin_stat_tx = StatTx(price_data.time, currency_amount=0, native_amount=0)
             else:
                 period_begin_stat_tx = copy(curr_stat_tx)
             period_begin_price_data = price_data
