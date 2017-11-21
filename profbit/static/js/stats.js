@@ -125,6 +125,15 @@ function renderGains(selector, value, isPercent) {
   $(selector).siblings('.investment-description').text(gainsData.description);
 }
 
+function getReturnPercent(investment, returnInvestment) {
+  if (investment == 0) {
+    returnPercent = 0;
+  } else {
+    returnPercent = returnInvestment / investment;
+  }
+  return returnPercent * 100;
+}
+
 function _renderCurrency(currency, periodInvestmentData) {
   var selectorId = '#' + currency;
   $(selectorId + '-Investment').text(formatCurrency(periodInvestmentData.total_investment));
@@ -159,9 +168,9 @@ function renderTotalDataContainer() {
     var periodInvestmentData = investmentData.all.period_investment_data;
     totalInvestmentData.total_investment += periodInvestmentData.total_investment;
     totalInvestmentData.return_investment += periodInvestmentData.return_investment;
-    totalInvestmentData.return_percent += periodInvestmentData.return_percent;
     _renderCurrency(currency, periodInvestmentData);
   }
+  totalInvestmentData.return_percent = getReturnPercent(totalInvestmentData.total_investment, totalInvestmentData.return_investment);
   _renderCurrency('total', totalInvestmentData);
 }
 
