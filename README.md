@@ -1,7 +1,13 @@
 # profbit
 [![Circle CI](https://circleci.com/gh/joshblum/profbit.svg?maxAge=2592000&style=shield)](https://circleci.com/gh/joshblum/profbit)
 
-Find out what your Coinbase profits are!
+Track your bitcoin, ethereum, and litecoin gains and losses in one place.
+
+![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-0.png "profbit preview")
+![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-1.png "profbit preview")
+![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-2.png "profbit preview")
+![profbit preview](https://github.com/joshblum/profbit/raw/master/profbit/static/img/carouself-3.png "profbit preview")
+
 
 ## Development/Self-hosted Server Setup
 

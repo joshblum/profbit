@@ -1,6 +1,6 @@
 {
   "name": "Profbit",
-  "description": "Simple server to OAuth with Coinbase and gather profit statistics.",
+  "description": "Track your bitcoin, ethereum, and litecoin gains and losses in one place.",
   "repository": "https://github.com/joshblum/profbit",
   "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],
   "logo": "http://TODO.com",
