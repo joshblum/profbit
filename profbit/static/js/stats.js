@@ -181,7 +181,7 @@ function render() {
     renderHistoricDataContainer(currency, period);
     $periodTabs.show();
     $historicDataContainer.show()
-    // https://github.com/Dogfalo/materialize/issues/2102
+      // https://github.com/Dogfalo/materialize/issues/2102
     window.dispatchEvent(new Event('resize'));
   }
 }
@@ -233,11 +233,13 @@ function getData(showLoad) {
   });
 }
 
-$(function() {
-  getData( /*showLoad=*/ true);
-  $('ul.tabs').tabs({
-    onShow: render,
-  });
-  // Poll for new data every 30seconds
-  setInterval(getData, 30 * 1000);
-}); // end of document ready
+(function($) {
+  $(function() {
+    getData( /*showLoad=*/ true);
+    $('ul.tabs').tabs({
+      onShow: render,
+    });
+    // Poll for new data every 30seconds
+    setInterval(getData, 30 * 1000);
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
