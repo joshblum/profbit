@@ -3,7 +3,21 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>{% block page_title %} Profbit - See you Coinbase profits {% endblock %}</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://profbit.info" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="description" content="Track your bitcoin, ethereum, and litecoin gains and losses in one place."
+  />
+  <meta property="og:title" content="Track your Coinbase profits!" />
+  <meta property="og:image" content="https://profbit.info/img/open-graph.png" />
+  <meta property="og:description" content="Track your bitcoin, ethereum, and litecoin gains and losses in one place."
+  />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Track your Coinbase profits!">
+  <meta property="twitter:description" content="Track your bitcoin, ethereum, and litecoin gains and losses in one place."
+  />
+  <meta name="twitter:image" content="https://profbit.info/img/open-graph.png" />
+  <title>{% block page_title %} Profbit - Track your Coinbase profits {% endblock %}</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -70,6 +84,6 @@
   <script src="{{ url_for('static', filename='js/libs/materialize.min.js') }}"></script>
   {% block extra_scripts %}
   {% endblock %}
-  <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/base.js') }}"></script>
   </body>
 </html>
