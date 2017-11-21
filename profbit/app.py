@@ -22,8 +22,9 @@ app.config.from_object('profbit.settings')
 # from werkzeug.contrib.profiler import ProfilerMiddleware
 # app.wsgi_app = ProfilerMiddleware(app.wsgi_app, sort_by=('cumtime',))
 
-if not app.debug and app.config.get('SENTRY_PRIVATE_DSN'):
-    sentry = Sentry(app)
+SENTRY_DSN = app.config.get('SENTRY_PRIVATE_DSN')
+if not app.debug and SENTRY_DSN:
+    sentry = Sentry(app, dsn=SENTRY_DSN)
 else:
     sentry = None
 
