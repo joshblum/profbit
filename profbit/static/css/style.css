@@ -93,10 +93,6 @@ footer {
   padding-bottom: 10px;
 }
 
-.copyright-text {
-  padding-bottom: 10px !important;
-}
-
 .github-buttons iframe {
   float: right;
   margin-right: 2px;
@@ -109,9 +105,6 @@ footer {
 }
 
 @media only screen and (max-width: 425px) {
-  .copyright-text {
-    font-size: 10px !important;
-  }
   .logo {
     width: 75px;
     height: 55px;
