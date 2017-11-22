@@ -239,6 +239,8 @@ function getData(showLoad) {
       // https://github.com/Dogfalo/materialize/issues/2102
       window.dispatchEvent(new Event('resize'));
     }
+  }).fail(function() {
+    window.location.replace('/error');
   });
 }
 
