@@ -103,8 +103,17 @@ footer {
   margin-left: 2px;
 }
 
+.logo {
+  width: 85px;
+  height: 64px;
+}
+
 @media only screen and (max-width: 425px) {
   .copyright-text {
     font-size: 10px !important;
+  }
+  .logo {
+    width: 75px;
+    height: 55px;
   }
 }
