@@ -28,8 +28,12 @@
 </head>
 <body>
   <nav class="white border-bottom" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('index') }}" class="brand-logo small-caps profbit-blue-text">profbit</a>
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.svg') }}" />
+      </a>
       <ul class="right hide-on-med-and-down valign-wrapper">
+        <li><a href="https://github.com/joshblum/profbit#donate" target="_blank">Donate</a></li>
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
@@ -38,6 +42,7 @@
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+        <li><a href="https://github.com/joshblum/profbit#donate" target="_blank">Donate</a></li>
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}

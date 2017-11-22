@@ -45,6 +45,11 @@ def logout():
     return redirect('/')
 
 
+@app.route('/error')
+def error():
+    return internal_server_error(None)
+
+
 @app.errorhandler(403)
 def forbidden(e):
     return render_template('error.html',
