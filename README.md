@@ -1,5 +1,6 @@
 # profbit
 [![Circle CI](https://circleci.com/gh/joshblum/profbit.svg?maxAge=2592000&style=shield)](https://circleci.com/gh/joshblum/profbit)
+[![Requirements Status](https://requires.io/github/joshblum/profbit/requirements.svg?branch=master)](https://requires.io/github/joshblum/profbit/requirements/?branch=master)
 
 Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 
