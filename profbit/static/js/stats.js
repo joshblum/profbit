@@ -177,6 +177,7 @@ function renderTotalDataContainer() {
 function render() {
   var currency = $('#currencyTabs').find('.active').data('currency');
   var period = $('#periodTabs').find('.active').data('period');
+  setLocalStorage(period, currency);
   $totalDataContainer = $('#totalDataContainer');
   $historicDataContainer = $('#historicDataContainer');
   $periodTabs = $('#periodTabs');
@@ -232,24 +233,42 @@ function getData(showLoad) {
       cfg = getChartConfig([]);
       window.profbitContext.chart = new Chart(ctx, cfg);
     }
-    render();
     if (showLoad) {
       $('.preloader-container').hide();
       $('.stats-container').show();
+      var state = getLocalStorage();
+      $('#currencyTabs').tabs('select_tab', state.currency);
+      $('#periodTabs').tabs('select_tab', state.period);
       // https://github.com/Dogfalo/materialize/issues/2102
       window.dispatchEvent(new Event('resize'));
     }
+    render();
   }).fail(function() {
     window.location.replace('/error');
   });
 }
 
+function getLocalStorage() {
+  return JSON.parse(window.localStorage.getItem('profbitStorage')) || {
+    'period': null,
+    'currency': 'total',
+  };
+}
+
+function setLocalStorage(period, currency) {
+  window.localStorage.setItem('profbitStorage', JSON.stringify({
+    'period': period,
+    'currency': currency,
+  }));
+}
+
+
 (function($) {
   $(function() {
-    getData( /*showLoad=*/ true);
     $('ul.tabs').tabs({
       onShow: render,
     });
+    getData( /*showLoad=*/ true);
     // Poll for new data every 30seconds
     setInterval(getData, 30 * 1000);
   }); // end of document ready
