@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block page_title %} Donate {% endblock %}
+
+{% block extra_styles %}
+  <link href="{{ url_for('static', filename='css/donate.css') }}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
+{% block main %}
+
+<div class="section donate-wrapper valign-wrapper flex-center">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 offset-m2 m8 offset-xl3 xl6 center">
+        <span class="flow-text">
+          Profbit is an open source side project.
+          To support development and keep our server running,
+          you can donate using Bitcoin or Ethereum.
+        </span>
+          <br>
+          <br>
+        <div>
+          Bitcoin: <code> 19UsnMKjhm22mFEYKKNHjxdFCfnShTcbPM </code>
+        <div>
+        <div>
+          Ethereum: <code> 0x97A3D535391A5a87f8362935B26f252E68C25Aca </code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
