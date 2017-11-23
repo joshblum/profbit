@@ -1,4 +1,5 @@
-# profbit
+# ![logo](https://raw.githubusercontent.com/joshblum/profbit/master/profbit/static/img/logo.png "profbit")
+
 [![Circle CI](https://circleci.com/gh/joshblum/profbit.svg?maxAge=2592000&style=shield)](https://circleci.com/gh/joshblum/profbit)
 [![Requirements Status](https://requires.io/github/joshblum/profbit/requirements.svg?branch=master)](https://requires.io/github/joshblum/profbit/requirements/?branch=master)
 
@@ -53,3 +54,7 @@ our server running, you can donate using Bitcoin or Ethereum:
 
 - Bitcoin: `19UsnMKjhm22mFEYKKNHjxdFCfnShTcbPM`
 - Ethereum: `0x97A3D535391A5a87f8362935B26f252E68C25Aca`
+
+
+## Icons
+The heart icon was created by Jivan from the Noun Project.
