@@ -1,0 +1,10 @@
+.donate-wrapper {
+  min-height: 80vh;
+}
+
+@media only screen and (max-width: 425px) {
+  code{
+    font-size: 10px;
+  }
+}
+

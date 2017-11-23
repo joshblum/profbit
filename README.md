@@ -1,6 +1,7 @@
-# profbit
+# <img width="200" alt="profbit logo" src="https://raw.githubusercontent.com/joshblum/profbit/master/profbit/static/img/logo.png">
 [![Circle CI](https://circleci.com/gh/joshblum/profbit.svg?maxAge=2592000&style=shield)](https://circleci.com/gh/joshblum/profbit)
 [![Requirements Status](https://requires.io/github/joshblum/profbit/requirements.svg?branch=master)](https://requires.io/github/joshblum/profbit/requirements/?branch=master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 
@@ -9,10 +10,7 @@ Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 |<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-0.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-1.png"> | |
 <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-2.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-3.png"> |
 
-## Development/Self-hosted Server Setup
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
+## Development Setup
 
 ### Requirements
 We use [Pipenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) to
@@ -49,7 +47,11 @@ flask syncdb
 ## Donate
 
 Profbit is an open source side project. To support development and keep
-our server running, you can donate using Bitcoin and Ethereum:
+our server running, you can donate using Bitcoin or Ethereum:
 
 - Bitcoin: `19UsnMKjhm22mFEYKKNHjxdFCfnShTcbPM`
 - Ethereum: `0x97A3D535391A5a87f8362935B26f252E68C25Aca`
+
+
+## Icons
+The heart icon was created by Jivan from the Noun Project.
