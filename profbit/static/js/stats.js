@@ -243,8 +243,10 @@ function getData(showLoad) {
       window.dispatchEvent(new Event('resize'));
     }
     render();
-  }).fail(function() {
-    window.location.replace('/error');
+  }).fail(function(jqXHR, textStatus) {
+    if (jqXHR.readyState === 4) { // Some HTTP error but not net disconnect.
+      window.location.replace('/error');
+    }
   });
 }
 
