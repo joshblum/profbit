@@ -1,6 +1,7 @@
 # <img width="200" alt="profbit logo" src="https://raw.githubusercontent.com/joshblum/profbit/master/profbit/static/img/logo.png">
 [![Circle CI](https://circleci.com/gh/joshblum/profbit.svg?maxAge=2592000&style=shield)](https://circleci.com/gh/joshblum/profbit)
 [![Requirements Status](https://requires.io/github/joshblum/profbit/requirements.svg?branch=master)](https://requires.io/github/joshblum/profbit/requirements/?branch=master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 
@@ -9,10 +10,7 @@ Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 |<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-0.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-1.png"> | |
 <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-2.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-3.png"> |
 
-## Development/Self-hosted Server Setup
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
+## Development Setup
 
 ### Requirements
 We use [Pipenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) to
