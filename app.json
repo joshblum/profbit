@@ -3,7 +3,7 @@
   "description": "Track your bitcoin, ethereum, and litecoin gains and losses in one place.",
   "repository": "https://github.com/joshblum/profbit",
   "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],
-  "logo": "http://TODO.com",
+  "logo": "http://www.profbit.info/static/img/app-icon.png",
   "website": "https://www.profbit.info",
   "success_url": "/",
   "scripts": {
