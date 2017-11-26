@@ -35,12 +35,7 @@
           <a href="{{ cta_url }}" class="btn-large waves-effect waves-light profbit-blue white-text">{{ cta_text }}</a>
       </div>
       <div class="col s6">
-          <div class="demo-carousel carousel carousel-slider">
-            <a class="carousel-item" href="#one!"><img src="{{ url_for('static', filename='img/carousel-0.png') }}"></a>
-            <a class="carousel-item" href="#two!"><img src="{{ url_for('static', filename='img/carousel-1.png') }}"></a>
-            <a class="carousel-item" href="#three!"><img src="{{ url_for('static', filename='img/carousel-2.png') }}"></a>
-            <a class="carousel-item" href="#three!"><img src="{{ url_for('static', filename='img/carousel-3.png') }}"></a>
-          </div>
+        <img class="preview-img" src="{{ url_for('static', filename='img/preview.gif') }}" />
       </div>
     </div>
     </div>
@@ -55,8 +50,4 @@
     </div>
   </div>
 </div>
-{% endblock %}
-
-{% block extra_scripts %}
-  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

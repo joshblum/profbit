@@ -4,11 +4,7 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Track your bitcoin, ethereum, and litecoin gains and losses in one place.
-
-| | |
-|:-------------------------:|:-------------------------:|
-|<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-0.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-1.png"> | |
-<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-2.png"> | <img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/carousel-3.png"> |
+<img width="300" alt="profbit preview" src="https://github.com/joshblum/profbit/blob/master/profbit/static/img/preview.gif">
 
 ## Development Setup
 
