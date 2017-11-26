@@ -54,5 +54,5 @@ our server running, you can donate using Bitcoin or Ethereum:
 - Litecoin: `LWk4TL8n866gmLmEvQWSs9V7tBBdyoWjgQ`
 
 
-## Icons
+## Attribution
 The heart icon was created by Jivan from the Noun Project.
