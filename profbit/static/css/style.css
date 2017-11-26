@@ -117,3 +117,27 @@ code {
   display: inline-block;
   padding: 5px;
 }
+
+.currency-icon {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  background-color: white;
+  display: inline-block;
+}
+
+.total-icon {
+  background-image: url("/static/img/total.svg");
+}
+
+.BTC-icon {
+  background-image: url("/static/img/bitcoin.svg");
+}
+
+.ETH-icon {
+  background-image: url("/static/img/etherum.svg");
+}
+
+.LTC-icon {
+  background-image: url("/static/img/litecoin.svg");
+}

@@ -27,7 +27,7 @@ def index():
 
 @app.route('/donate')
 def donate():
-    return render_template('donate.html')
+    return render_template('donate.html', donate_active='active')
 
 
 @app.route('/stats/')
