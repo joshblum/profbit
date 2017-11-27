@@ -26,7 +26,6 @@ SOCIAL_AUTH_COINBASE_SCOPE = [
 SOCIAL_AUTH_COINBASE_AUTH_EXTRA_ARGUMENTS = {
         'account': 'all',
         'referral': '5943d0d36785cd04ad5c2d25',
-        'layout': 'signup',
 }
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/stats/'
 SOCIAL_AUTH_USER_MODEL = 'profbit.models.User'
@@ -45,3 +44,13 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
+
+# Flask Compress
+COMPRESS_MIMETYPES = [
+    'text/html',
+    'text/css',
+    'text/xml',
+    'application/json',
+    'application/javascript',
+    'image/svg+xml',
+]

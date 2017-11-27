@@ -109,6 +109,9 @@ footer {
     width: 75px;
     height: 55px;
   }
+  .row .col {
+    padding: 0 .3rem;
+  }
 }
 
 code {
@@ -140,4 +143,30 @@ code {
 
 .LTC-icon {
   background-image: url("/static/img/litecoin.svg");
+}
+
+
+/* index.css */
+
+.index-intro {
+  min-height: 55vh;
+}
+
+.index-banner {
+  min-height: 25vh
+}
+
+.cta-text {
+  margin-bottom: 20px;
+}
+
+.preview-img {
+  width: 100%;
+}
+
+@media only screen and (max-width: 425px) {
+  .index-intro-text {
+    display: block;
+    padding-top: 10vh;
+  }
 }

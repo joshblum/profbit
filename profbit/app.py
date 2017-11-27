@@ -3,6 +3,7 @@ from urllib import parse
 from flask import Flask
 from flask import g
 from flask import redirect
+from flask_compress import Compress
 from flask_login import LoginManager
 from flask_login import current_user
 from peewee import PostgresqlDatabase
@@ -17,6 +18,7 @@ from .models import database_proxy
 
 app = Flask(__name__)
 app.config.from_object('profbit.settings')
+Compress(app)
 
 # Manually enable when profiling
 # from werkzeug.contrib.profiler import ProfilerMiddleware
