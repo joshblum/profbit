@@ -7,5 +7,4 @@ jobs:
     steps:
       - checkout
       - run: make installdeps
-      - run: pipenv run make lint
-        # TODO(joshblum): Tests
+      - run: pipenv run make test
