@@ -103,26 +103,35 @@ function getGainsData(value) {
   if (value > 0) {
     gainsData.cls = 'positive';
     gainsData.symbol = '+';
-    gainsData.description = 'gained';
+    gainsData.periodDescription = 'gained';
+    gainsData.investmentDescription = 'invested'
   } else if (value < 0) {
     gainsData.cls = 'negative';
     gainsData.symbol = '-';
-    gainsData.description = 'lost';
+    gainsData.periodDescription = 'lost';
+    gainsData.investmentDescription = 'withdrawn'
   } else {
     gainsData.cls = '';
     gainsData.symbol = '';
-    gainsData.description = '';
+    gainsData.periodDescription = '';
+    gainsData.investmentDescription = 'invested'
   }
   gainsData.cls = gainsData.cls + '-gains gains';
   return gainsData;
 }
 
-function renderGains(selector, value, isPercent) {
+function renderGains(selector, value, isPeriodData, isPercent) {
   var gainsData = getGainsData(value);
   value = Math.abs(value);
   var formattedValue = isPercent ? formatPercent(value) : formatCurrency(value);
   $(selector).text(formattedValue).prepend($('<span>' + gainsData.symbol + '</span>').addClass(gainsData.cls));
-  $(selector).siblings('.investment-description').text(gainsData.description);
+  var description;
+  if (isPeriodData) {
+    description = gainsData.periodDescription;
+  } else {
+    description = gainsData.investmentDescription;
+  }
+  $(selector).siblings('.investment-description').text(description);
 }
 
 function getReturnPercent(investment, returnInvestment) {
@@ -136,9 +145,9 @@ function getReturnPercent(investment, returnInvestment) {
 
 function _renderCurrency(currency, periodInvestmentData) {
   var selectorId = '#' + currency;
-  $(selectorId + '-Investment').text(formatCurrency(periodInvestmentData.total_investment));
-  renderGains(selectorId + '-ReturnInvestment', periodInvestmentData.return_investment);
-  renderGains(selectorId + '-ReturnPercent', periodInvestmentData.return_percent, /*isPercent=*/ true);
+  renderGains(selectorId + '-Investment', periodInvestmentData.total_investment);
+  renderGains(selectorId + '-ReturnInvestment', periodInvestmentData.return_investment, /*isPeriodData=*/ true);
+  renderGains(selectorId + '-ReturnPercent', periodInvestmentData.return_percent, /*isPeriodData=*/ true, /*isPercent=*/ true);
 }
 
 function renderHistoricDataContainer(currency, period) {
