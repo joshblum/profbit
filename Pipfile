@@ -15,19 +15,20 @@ python_full_version = "3.6.3"
 ipython = "*"
 "flake8" = "*"
 isort = "*"
+pytest = "*"
 
 
 [packages]
 
 coinbase = {git = "git://github.com/joshblum/coinbase-python.git"}
-flask = "*"
+Flask = "*"
 social-auth-app-flask-peewee = "*"
-flask-login = "*"
+Flask-Login = "*"
 gunicorn = "*"
 "psycopg2" = "*"
-werkzeug = "*"
+Werkzeug = "*"
 raven = {extras = ["flask"]}
 greenlet = "*"
 gevent = "*"
-flask-compress = "*"
+Flask-Compress = "*"
 django-htmlmin = "*"
