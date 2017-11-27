@@ -2,7 +2,7 @@ function formatPercent(value) {
   return value.toFixed(2) + '%';
 }
 
-function formatCurrency(value, applyAbs) {
+function formatCurrency(value) {
   return window.profbitContext.currencyFormatter.format(value);
 }
 
