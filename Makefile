@@ -14,4 +14,4 @@ lint:
 	flake8 $(SRC_DIR) && isort --check-only --recursive $(SRC_DIR)
 
 test: lint
-	py.test
+	py.test --cov=$(SRC_DIR)

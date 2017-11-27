@@ -1,6 +1,7 @@
 <img width="200" alt="profbit logo" src="https://raw.githubusercontent.com/joshblum/profbit/master/profbit/static/img/logo.png">
 
 [![Circle CI](https://circleci.com/gh/joshblum/profbit.svg?maxAge=2592000&style=shield)](https://circleci.com/gh/joshblum/profbit)
+[![codecov](https://codecov.io/gh/joshblum/profbit/branch/master/graph/badge.svg)](https://codecov.io/gh/joshblum/profbit)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Track your bitcoin, ethereum, and litecoin gains and losses in one place.
