@@ -15,3 +15,6 @@ lint:
 
 test: lint
 	py.test --cov=$(SRC_DIR)
+
+coverage: test
+	codecov
