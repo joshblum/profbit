@@ -7,4 +7,4 @@ jobs:
     steps:
       - checkout
       - run: make installdeps
-      - run: pipenv run make test
+      - run: pipenv run make coverage
