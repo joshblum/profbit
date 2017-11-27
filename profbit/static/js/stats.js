@@ -89,7 +89,7 @@ function getChartConfig(graphData) {
           ticks: {
             // Include a currency sign in the ticks
             callback: function(value, index, values) {
-              return window.profbitContext.nativeCurrencySymbol + value.toFixed(2);
+              return formatCurrency(value);
             },
           },
         }]
