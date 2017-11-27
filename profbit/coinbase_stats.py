@@ -221,16 +221,18 @@ def get_coinbase_stats(access_token):
     """
     client = OAuthClient(access_token, access_token)
     user = client.get_current_user()
+    # TODO(joshblum): Handle wallet pagination.
     accounts = client.get_accounts()
 
     jobs = []
     for account in accounts.data:
         if account.type != 'wallet':
-            # TODO(joshblum): Look into other account types
+            # TODO(joshblum): Look into other account types.
             continue
         jobs.append(gevent.spawn(_fetch_stats, client, account))
     gevent.joinall(jobs)
 
+    # TODO(joshblum): Handle users with multiple wallets.
     stats = {}
     for job in jobs:
         currency, investment_data = job.value

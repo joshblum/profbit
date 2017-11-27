@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block extra_styles %}
-  <link href="{{ url_for('static', filename='css/index.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
   {% if config.GOOGLE_ANALYTICS_ID %}
     <!-- Only track homepage views -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -20,8 +19,8 @@
 {% include "fork-me.html" %}
 <div class="section valign-wrapper index-intro">
   <div class="container">
-    <div class="row valign-wrapper">
-      <div class="col s6 m4">
+    <div class="row valign-wrapper index-intro-text">
+      <div class="col s12 m4 center">
         <div class="cta-text flow-text black-text">
           Track your bitcoin, ethereum, and litecoin gains and losses in one
           place.
@@ -35,10 +34,14 @@
         {% endif %}
           <a href="{{ cta_url }}" class="btn-large waves-effect waves-light profbit-blue white-text">{{ cta_text }}</a>
       </div>
-      <div class="col s6">
+      <div class="col s6 hide-on-small-only">
         <img class="preview-img" src="{{ url_for('static', filename='img/preview.gif') }}" />
       </div>
     </div>
+    <div class="row hide-on-med-and-up">
+      <div class="col s12">
+        <img class="preview-img" src="{{ url_for('static', filename='img/preview.gif') }}" />
+      </div>
     </div>
   </div>
 </div>

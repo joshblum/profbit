@@ -1,9 +1,12 @@
+from functools import wraps
+
 from flask import g
 from flask import jsonify
 from flask import redirect
 from flask import render_template
 from flask_login import login_required
 from flask_login import logout_user
+from htmlmin.minify import html_minify
 from social_flask.utils import load_strategy
 
 from .app import app
@@ -20,18 +23,29 @@ def _get_stats():
     return get_coinbase_stats(access_token)
 
 
+def minified_response(f):
+    @wraps(f)
+    def minify(*args, **kwargs):
+        rendered_template = f(*args, **kwargs)
+        return html_minify(rendered_template)
+    return minify
+
+
 @app.route('/')
+@minified_response
 def index():
     return render_template('index.html')
 
 
 @app.route('/donate')
+@minified_response
 def donate():
     return render_template('donate.html', donate_active='active')
 
 
 @app.route('/stats/')
 @login_required
+@minified_response
 def stats():
     return render_template('stats.html')
 
@@ -56,6 +70,7 @@ def error():
 
 
 @app.errorhandler(403)
+@minified_response
 def forbidden(e):
     return render_template('error.html',
                            error_title=403,
@@ -64,6 +79,7 @@ def forbidden(e):
 
 
 @app.errorhandler(404)
+@minified_response
 def page_not_found(e):
     return render_template('error.html',
                            error_title=404,
@@ -72,6 +88,7 @@ def page_not_found(e):
 
 
 @app.errorhandler(500)
+@minified_response
 def internal_server_error(e):
     context = {
         'error_title': 500,
