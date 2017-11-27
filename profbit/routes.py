@@ -70,7 +70,6 @@ def error():
 
 
 @app.errorhandler(403)
-@minified_response
 def forbidden(e):
     return render_template('error.html',
                            error_title=403,
@@ -79,7 +78,6 @@ def forbidden(e):
 
 
 @app.errorhandler(404)
-@minified_response
 def page_not_found(e):
     return render_template('error.html',
                            error_title=404,
@@ -88,7 +86,6 @@ def page_not_found(e):
 
 
 @app.errorhandler(500)
-@minified_response
 def internal_server_error(e):
     context = {
         'error_title': 500,
