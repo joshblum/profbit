@@ -175,8 +175,9 @@ def _get_stat_txs(client, account):
     while coinbase_txs.pagination.next_uri:
         starting_after = parse.parse_qs(
                 coinbase_txs.pagination.next_uri).get('starting_after')
-        coinbase_txs = client.get_transactions(account.id,
-                order='asc', starting_after=starting_after, limit=100)
+        coinbase_txs = client.get_transactions(
+                account.id, order='asc', starting_after=starting_after,
+                limit=100)
         coinbase_data.extend(coinbase_txs.data)
 
     for i, coinbase_tx in enumerate(coinbase_data):
