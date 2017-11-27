@@ -164,9 +164,16 @@ code {
   width: 100%;
 }
 
+.sm-text {
+  font-size: .9rem;
+}
+
 @media only screen and (max-width: 425px) {
   .index-intro-text {
     display: block;
     padding-top: 10vh;
+  }
+  .sm-text {
+    font-size: .75rem;
   }
 }
