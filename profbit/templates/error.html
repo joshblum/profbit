@@ -17,8 +17,16 @@
   </div>
 </div>
 
+{% if refresh_stats %}
+  <script type="text/javascript">
+    setTimeout(function() {
+        window.location.replace("{{ url_for('stats') }}");
+    }, 10*1000);
+  </script>
+{% endif %}
+
 {% if event_id %}
-  <script>
+  <script type="text/javascript">
     Raven.showReportDialog(
     {
       eventId: '{{ event_id }}',

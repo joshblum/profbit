@@ -253,7 +253,9 @@ function getData(showLoad) {
     }
     render();
   }).fail(function(jqXHR, textStatus) {
-    if (jqXHR.readyState === 4) { // Some HTTP error but not net disconnect.
+    // Only display error page on the first load, if we're refreshing we
+    // shouldn't poop.
+    if (showLoad && jqXHR.readyState === 4) { // Some HTTP error but not net disconnect.
       window.location.replace('/error');
     }
   });
