@@ -66,7 +66,11 @@ def logout():
 
 @app.route('/error')
 def error():
-    return internal_server_error(None)
+    return internal_server_error(None, {
+        'error_title': 'Oops',
+        'page_title': 'Error',
+        'refresh_stats': True,
+    })
 
 
 @app.errorhandler(403)
@@ -86,11 +90,12 @@ def page_not_found(e):
 
 
 @app.errorhandler(500)
-def internal_server_error(e):
-    context = {
-        'error_title': 500,
-        'page_title': '500 Internal Server Error',
-    }
+def internal_server_error(e, context=None):
+    if context is None:
+        context = {
+            'error_title': 500,
+            'page_title': '500 Internal Server Error',
+        }
     if sentry:
         context['event_id'] = g.sentry_event_id
     return render_template('error.html', **context), 500
