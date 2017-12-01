@@ -34,6 +34,9 @@
         <img class="logo" src="{{ url_for('static', filename='img/logo.svg') }}" />
       </a>
       <ul class="right hide-on-med-and-down valign-wrapper">
+        {% if config.CONTACT_EMAIL %}
+          <li><a href="mailto:{{ config.CONTACT_EMAIL }}">Contact</a></li>
+        {% endif %}
         <li class="{{ donate_active }}"><a href="{{ url_for('donate') }}">Donate</a></li>
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
@@ -43,6 +46,9 @@
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+        {% if config.CONTACT_EMAIL %}
+          <li><a href="mailto:{{ config.CONTACT_EMAIL }}">Contact</a></li>
+        {% endif %}
         <li class="{{ donate_active }}"><a href="{{ url_for('donate') }}">Donate</a></li>
         {% if current_user.is_authenticated %}
           <li><a href="{{ url_for('logout') }}">Logout</a></li>

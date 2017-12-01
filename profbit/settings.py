@@ -1,11 +1,13 @@
 import os
 
+# Environment variables
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 IS_HEROKU = os.environ.get('IS_HEROKU', False)
 FLASK_DEBUG = not IS_HEROKU
 DATABASE_URL = os.environ.get('DATABASE_URL', '/tmp/profbit.db')
 SENTRY_PRIVATE_DSN = os.environ.get('SENTRY_PRIVATE_DSN', '')
 GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')
+CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', '')
 
 # For templates
 LOGIN_URL = "/login/coinbase/?remember_me=1"
