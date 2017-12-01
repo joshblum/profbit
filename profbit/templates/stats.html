@@ -242,6 +242,7 @@
 
 {% endblock %}
 {% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/bin/app.js') }}"></script>
 <script src="{{ url_for('static', filename='js/libs/moment.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/libs/Chart.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/libs/Chart.min.js') }}"></script>

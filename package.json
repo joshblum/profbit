@@ -1,0 +1,24 @@
+{
+  "name": "profbit",
+  "version": "1.0.0",
+  "description": "Track your Coinbase profits!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack profbit/static/js/src/index.js profbit/static/js/bin/app.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshblum/profbit.git"
+  },
+  "author": "Josh Blum",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joshblum/profbit/issues"
+  },
+  "homepage": "https://github.com/joshblum/profbit#readme",
+  "dependencies": {
+    "mithril": "^1.1.6",
+    "webpack": "^3.9.1"
+  }
+}
