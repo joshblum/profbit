@@ -35,6 +35,11 @@
       "value": "Optional",
       "required": false
     },
+    "CONTACT_EMAIL": {
+      "description": "Optional email for user feedback and questions.",
+      "value": "support@example.com",
+      "required": false
+    },
     "IS_HEROKU": {
       "description": "Signals that the server is running on Heroku.",
       "value": "1"
