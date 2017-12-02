@@ -1,8 +1,14 @@
 'use strict'
 
-var m = require("mithril")
+var m = require('mithril')
 
 var Stats = {
+  formatPercent: function(value) {
+    return value.toFixed(2) + '%';
+  },
+  formatCurrency: function(value) {
+    return Stats.data.currencyFormatter.format(value);
+  },
   getReturnPercent: function(investment, returnInvestment) {
     let returnPercent
     if (investment == 0) {
@@ -17,14 +23,14 @@ var Stats = {
   loadData: function() {
     return m.request({
       method: 'GET',
-      url: '/static/js/src/stats.json'
+      url: '/api/stats'
     }).then((result) => {
       // Parse historical data
       for (var currency in result.stats) {
         for (var period in result.stats[currency]) {
-          var historicInvestmentData = result.stats[currency][period].historic_investment_data
+          let historicInvestmentData = result.stats[currency][period].historic_investment_data
           for (var i = 0; i < historicInvestmentData.length; i++) {
-            var obj = historicInvestmentData[i]
+            let obj = historicInvestmentData[i]
             obj.x = new Date(obj.x * 1000)
             historicInvestmentData[i] = obj
           }
@@ -32,15 +38,15 @@ var Stats = {
         }
       }
       // Parse totals data
-      var totalInvestmentData = {
+      let totalInvestmentData = {
         total_investment: 0,
         return_investment: 0,
         return_percent: 0,
       }
-      var investmentTotals = {}
+      let investmentTotals = {}
       for (var currency in result.stats) {
-        var investmentData = result.stats[currency]
-        var periodInvestmentData = investmentData.all.period_investment_data
+        let investmentData = result.stats[currency]
+        let periodInvestmentData = investmentData.all.period_investment_data
         investmentTotals[currency] = periodInvestmentData
         totalInvestmentData.total_investment += periodInvestmentData.total_investment
         totalInvestmentData.return_investment += periodInvestmentData.return_investment
@@ -67,6 +73,10 @@ var Stats = {
         }
       }
       Stats.isLoaded = true
+    }).catch(function(e) {
+      if (!Stats.isLoaded) { // Some HTTP error but not net disconnect.
+        window.location.replace('/error');
+      }
     })
   }
 }
