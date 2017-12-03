@@ -6,5 +6,7 @@ jobs:
         - image: python:3.6.3
     steps:
       - checkout
+      - run: curl -sL https://deb.nodesource.com/setup_8.x  | bash -
+      - run: apt-get install nodejs -y
       - run: make installdeps
       - run: pipenv run make coverage && npm test
