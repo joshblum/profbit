@@ -8,6 +8,7 @@
     "lint": "standard --fix",
     "start": "webpack -d --watch",
     "build": "webpack -p",
+    "heroku-prebuild": "npm install --dev",
     "heroku-postbuild": "webpack -p"
   },
   "repository": {
