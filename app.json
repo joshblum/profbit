@@ -9,6 +9,11 @@
   "scripts": {
     "postdeploy": "FLASK_APP=profbit/app.py flask syncdb"
   },
+  "buildpacks": [{
+    "url": "heroku/python"
+  }, {
+    "url": "heroku/nodejs"
+  }],
   "addons": [{
     "plan": "heroku-postgresql"
   }],
