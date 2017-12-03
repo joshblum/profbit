@@ -1,0 +1,42 @@
+{
+  "name": "profbit",
+  "version": "1.0.0",
+  "description": "Track your Coinbase profits!",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard",
+    "lint": "standard --fix",
+    "start": "webpack -d --watch",
+    "build": "webpack -p",
+    "heroku-prebuild": "npm install --dev",
+    "heroku-postbuild": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshblum/profbit.git"
+  },
+  "author": "Josh Blum",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joshblum/profbit/issues"
+  },
+  "homepage": "https://github.com/joshblum/profbit#readme",
+  "dependencies": {
+    "chart.js": "^2.7.1",
+    "mithril": "^1.1.6",
+    "moment": "^2.19.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^4.12.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-react": "^7.5.1",
+    "standard": "^10.0.3",
+    "webpack": "^3.9.1"
+  }
+}
