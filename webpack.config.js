@@ -5,7 +5,7 @@ module.exports = {
   entry: staticDir + '/src/index.js',
   output: {
     path: path.resolve(__dirname, staticDir + '/bin'),
-    filename: 'app.js',
+    filename: 'app.js'
   },
   module: {
     loaders: [{

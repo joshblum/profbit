@@ -1,9 +1,11 @@
 'use strict'
+/* global $ */
 
 var Tabs = {
-  setup: function(vnode) {
+  setup: function (vnode) {
+    // Bad hack to get tabs to work.
     $('ul.tabs').tabs()
-  },
+  }
 }
 Tabs.oncreate = Tabs.setup
 Tabs.onupdate = Tabs.setup
