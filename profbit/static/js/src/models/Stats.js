@@ -1,4 +1,4 @@
-' use strict'
+'use strict'
 
 var m = require('mithril') // eslint-disable-line no-unused-vars
 var Currencies = require('./Currencies')
@@ -52,7 +52,7 @@ var Stats = {
   isStatLoaded: function (currency, period) {
     return Stats._getState('loaded', currency, period) === true
   },
-  setLoadedStats: function (currency, period, value) {
+  setStatLoaded: function (currency, period, value) {
     Stats._setState('loaded', currency, period, value)
   },
   prefetchData: function () {
@@ -124,7 +124,7 @@ var Stats = {
         }
         Stats.data.stats[currency][period] = result.stats[currency][period]
       }
-      Stats.setLoadedStats(currency, period, true)
+      Stats.setStatLoaded(currency, period, true)
     })
     .catch(function (e) {
       Stats.setPendingRequest(currency, period, false)
