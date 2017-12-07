@@ -14,9 +14,9 @@ from .app import app
 from .app import sentry
 from .coinbase_stats import get_coinbase_stats
 
-
 CURRENCIES = {'total', 'btc', 'eth', 'ltc'}
 PERIODS = {None, 'hour', 'day', 'week', 'month', 'year', 'all'}
+
 
 def minified_response(f):
     @wraps(f)

@@ -2,17 +2,17 @@ import datetime
 import re
 from collections import defaultdict
 from copy import copy
-from functools import lru_cache
 from enum import Enum
+from functools import lru_cache
 from urllib import parse
 
 from coinbase.wallet.client import OAuthClient
 
 from .currency_map import CURRENCY_MAP
 
-
 TIMESTAMP_REGEX = re.compile(
     r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})')
+
 
 class StatTx():
     """
@@ -55,10 +55,12 @@ class StatPeriod(Enum):
     DAY = 'day'
     HOUR = 'hour'
 
+
 def parse_datetime(date_time):
     # https://stackoverflow.com/a/14163523/1213319
     return datetime.datetime(
             *map(int, TIMESTAMP_REGEX.match(date_time).groups()))
+
 
 def paginate_response(client, func_name, *args, **kwargs):
     """
@@ -75,7 +77,6 @@ def paginate_response(client, func_name, *args, **kwargs):
         coinbase_response = coinbase_func(*args, **kwargs)
         coinbase_data.extend(coinbase_response.data)
     return coinbase_data
-
 
 
 def _get_currency_pair(currency, native):
@@ -178,6 +179,7 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
         'historic_investment_data': historic_investment_data,
     }
 
+
 def _merge_stat_txs(array1, array2):
     left_idx = 0
     right_idx = 0
@@ -202,7 +204,9 @@ def _get_stat_txs(client, accounts):
     all_account_data = []
     # Create a sorted list of all transactions for a given currency
     for account in accounts:
-        account_data = paginate_response(client, 'get_transactions', *(account.id,), **{'order':'asc', 'limit':'100'})
+        account_data = paginate_response(
+            client, 'get_transactions',
+            *(account.id,), **{'order': 'asc', 'limit': '100'})
         all_account_data = _merge_stat_txs(all_account_data, account_data)
 
     stat_txs = []
@@ -229,10 +233,11 @@ def _get_stats_data_for_period(client, accounts, period):
     stat_txs = _get_stat_txs(client, accounts)
     account = accounts[0]
     currency_pair = _get_currency_pair(account.currency.code,
-                                     account.native_balance.currency)
+                                       account.native_balance.currency)
     return {
         period: _get_investment_data(client, currency_pair, period, stat_txs)
     }
+
 
 def _get_total_data(client, accounts):
     account_mapping = defaultdict(list)
@@ -244,7 +249,7 @@ def _get_total_data(client, accounts):
     stats = {}
     for currency, accounts in account_mapping.items():
         total_balance = sum(float(account.native_balance.amount)
-                for account in accounts)
+                            for account in accounts)
         stat_txs = _get_stat_txs(client, accounts)
         stat_txs = stat_txs or [
             StatTx(datetime.datetime.now(), currency_amount=0, native_amount=0)
@@ -276,7 +281,7 @@ def _get_user_and_accounts(access_token, cache_date):
     """
     client = OAuthClient(access_token, access_token)
     user = client.get_current_user()
-    accounts = paginate_response(client, 'get_accounts', **{'limit':'100'})
+    accounts = paginate_response(client, 'get_accounts', **{'limit': '100'})
     return (user, accounts)
 
 
@@ -293,7 +298,9 @@ def get_coinbase_stats(access_token, currency, period):
     if currency == 'total':
         stats_data = _get_total_data(client, accounts)
     else:
-        accounts = filter(lambda account: account.currency.code.lower() == currency, accounts)
+        accounts = filter(
+            lambda account: account.currency.code.lower() == currency,
+            accounts)
         stats_data = _get_stats_data_for_period(client, accounts, period)
 
     return {
