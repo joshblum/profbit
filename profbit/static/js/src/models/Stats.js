@@ -98,6 +98,9 @@ var Stats = {
       config: function () { Stats.setPendingRequest(currency, period, true) }
     }).then((result) => {
       Stats.setPendingRequest(currency, period, false)
+      if (result.error === true) {
+        window.location.replace('/error/')
+      }
       if (Stats.data === null) {
         Stats.data = {
           nativeCurrency: result.native_currency,

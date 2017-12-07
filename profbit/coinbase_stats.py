@@ -56,10 +56,10 @@ class StatPeriod(Enum):
     HOUR = 'hour'
 
 
-def parse_datetime(date_time):
+def parse_timestamp(timestamp):
     # https://stackoverflow.com/a/14163523/1213319
     return datetime.datetime(
-            *map(int, TIMESTAMP_REGEX.match(date_time).groups()))
+            *map(int, TIMESTAMP_REGEX.match(timestamp).groups()))
 
 
 def paginate_response(client, func_name, *args, **kwargs):
@@ -131,7 +131,7 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
     historic_investment_data = []
 
     for price_data in historic_prices:
-        date_time = parse_datetime(price_data.time)
+        date_time = parse_timestamp(price_data.time)
         # Find first tx that is after this `price_data`
         while next_stat_tx and date_time >= next_stat_tx.date_time:
             curr_stat_tx = next_stat_tx
@@ -189,8 +189,10 @@ def _merge_stat_txs(array1, array2):
         right = array2[right_idx]
         if left.date_time < right.date_time:
             merged.append(left)
+            left_idx += 1
         else:
             merged.append(right)
+            right_idx += 1
     merged.extend(array1[left_idx:])
     merged.extend(array2[right_idx:])
     return merged
@@ -215,7 +217,7 @@ def _get_stat_txs(client, accounts):
         if coinbase_tx.status != 'completed':
             continue
         stat_tx = StatTx(
-            date_time=parse_datetime(coinbase_tx.created_at),
+            date_time=parse_timestamp(coinbase_tx.created_at),
             currency_amount=float(coinbase_tx.amount.amount),
             currency_code=account.currency.code,
             native_amount=float(coinbase_tx.native_amount.amount),
