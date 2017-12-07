@@ -104,9 +104,6 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
         currency_pair=currency_pair,
         period=period,
     ).prices)
-    stat_txs = stat_txs or [
-        StatTx(datetime.datetime.now(), currency_amount=0, native_amount=0)
-    ]
 
     def _next_tx(index):
         if index >= len(stat_txs):
@@ -147,8 +144,7 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
 
         if period_begin_stat_tx is None and period_begin_price_data is None:
             if roi == 0:
-                period_begin_stat_tx = StatTx(
-                    price_data.time, currency_amount=0, native_amount=0)
+                period_begin_stat_tx = StatTx(price_data.time)
             else:
                 period_begin_stat_tx = copy(curr_stat_tx)
             period_begin_price_data = price_data
@@ -227,7 +223,7 @@ def _get_stat_txs(client, accounts):
             # Keep a running sum of our total to compare to historical data.
             stat_tx += stat_txs[i - 1]
         stat_txs.append(stat_tx)
-    return stat_txs
+    return stat_txs or [StatTx(datetime.datetime.now())]
 
 
 def _get_stats_data_for_period(client, accounts, period):
@@ -253,9 +249,6 @@ def _get_total_data(client, accounts):
         total_balance = sum(float(account.native_balance.amount)
                             for account in accounts)
         stat_txs = _get_stat_txs(client, accounts)
-        stat_txs = stat_txs or [
-            StatTx(datetime.datetime.now(), currency_amount=0, native_amount=0)
-        ]
         investment = stat_txs[-1].native_amount
         return_investment = total_balance - investment
         stats[currency] = {

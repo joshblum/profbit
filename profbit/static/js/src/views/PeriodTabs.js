@@ -13,10 +13,9 @@ module.exports = {
       <ul class='tabs'>
         {Object.keys(PeriodIntervals).map(function (period) {
           let periodName = PeriodIntervals[period]
-
           let active = period === Utils.getRouteParams().period ? 'active' : ''
           return <li class='tab col s2'>
-            <a class={active} href={'#' + period} onclick={function () { Utils.setRouteParams(null, period) }}>
+            <a class={active} href={'#' + period} onclick={function () { Utils.setRouteParams(/* currency= */null, period) }}>
               {periodName}
             </a>
           </li>

@@ -13,15 +13,10 @@ module.exports = {
       <ul class='tabs'>
         {Currencies.map(function (currency) {
           let selectedCurrency = Utils.getRouteParams().currency
-          let active
-          if (currency === 'total' && selectedCurrency === 'total') {
-            active = 'active'
-          } else {
-            active = currency === selectedCurrency ? 'active' : ''
-          }
+          let active = currency === selectedCurrency ? 'active' : ''
           return <li class='tab col s1 m2'>
             <a href={'#' + currency} class={active + ' valign-wrapper flex-center'}
-              onclick={function () { Utils.setRouteParams(currency, null) }}>
+              onclick={function () { Utils.setRouteParams(currency, /* period= */null) }}>
               <span class={currency + '-icon currency-icon'} />
             </a>
           </li>

@@ -11,9 +11,10 @@ module.exports = {
     }
   },
   setRouteParams: function (currency, period) {
+    const routeParams = this.getRouteParams()
     m.route.set('/:currency/:period', {
-      currency: currency || m.route.param().currency || 'total',
-      period: period || m.route.param().period || 'hour'
+      currency: currency || routeParams.currency,
+      period: period || routeParams.period
     })
   }
 }

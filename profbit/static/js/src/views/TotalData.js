@@ -8,7 +8,7 @@ var Loading = require('./Loading')
 
 module.exports = {
   view: function () {
-    if (!Stats.isStatLoaded('total', null)) {
+    if (!Stats.isStatLoaded('total', /* period= */null)) {
       Stats.loadData()
       return <Loading />
     }

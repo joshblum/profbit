@@ -56,8 +56,8 @@ var Stats = {
     Stats._setState('loaded', currency, period, value)
   },
   prefetchData: function () {
-    if (!Stats.isStatLoaded('total', null)) {
-      Stats.loadData('total', null)
+    if (!Stats.isStatLoaded('total', /* period= */null)) {
+      Stats.loadData('total', /* period= */null)
     }
     for (let currency in Currencies) {
       currency = Currencies[currency]
@@ -70,16 +70,6 @@ var Stats = {
         }
       }
     }
-  },
-  _parseHistoricData: function (result, currency, period) {
-    // Parse historical data
-    let historicInvestmentData = result.stats[currency][period].historic_investment_data
-    for (var i = 0; i < historicInvestmentData.length; i++) {
-      let obj = historicInvestmentData[i]
-      obj.x = new Date(obj.x * 1000)
-      historicInvestmentData[i] = obj
-    }
-    result.stats[currency][period].historic_investment_data = historicInvestmentData
   },
   loadData: function (currency, period) {
     const routeParams = Utils.getRouteParams()
@@ -105,7 +95,7 @@ var Stats = {
         Stats.data = {
           nativeCurrency: result.native_currency,
           nativeCurrencySymbol: result.native_currency_symbol,
-          stats: {},
+          stats: Stats._getEmptyState(),
           totalInvestmentStats: {},
           currencyFormatter: new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -121,10 +111,10 @@ var Stats = {
       if (currency === 'total') {
         Stats.data.totalInvestmentStats = result.stats.total
       } else {
-        Stats._parseHistoricData(result, currency, period)
-        if (!(currency in Stats.data.stats)) {
-          Stats.data.stats[currency] = {}
-        }
+        // Parse historical data
+        result.stats[currency][period].historic_investment_data.map(function (obj) {
+          obj.x = new Date(obj.x * 1000)
+        })
         Stats.data.stats[currency][period] = result.stats[currency][period]
       }
       Stats.setStatLoaded(currency, period, true)
