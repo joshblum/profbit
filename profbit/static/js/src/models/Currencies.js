@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = ['total', 'BTC', 'ETH', 'LTC']
+module.exports = ['total', 'btc', 'eth', 'ltc']

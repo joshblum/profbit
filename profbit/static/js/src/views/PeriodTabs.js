@@ -2,14 +2,8 @@
 
 var m = require('mithril') // eslint-disable-line no-unused-vars
 var Tabs = require('./Tabs')
-const periodIntervals = {
-  hour: '1h',
-  day: '1d',
-  week: '1w',
-  month: '1m',
-  year: '1y',
-  all: 'all'
-}
+var PeriodIntervals = require('../models/PeriodIntervals')
+var Utils = require('../utils/Utils')
 
 module.exports = {
   oncreate: Tabs.oncreate,
@@ -17,17 +11,12 @@ module.exports = {
   view: function () {
     return <div class='col m6 s12'>
       <ul class='tabs'>
-        {Object.keys(periodIntervals).map(function (period) {
-          let periodName = periodIntervals[period]
-          let active = period === m.route.param().period.toLowerCase() ? 'active' : ''
+        {Object.keys(PeriodIntervals).map(function (period) {
+          let periodName = PeriodIntervals[period]
+
+          let active = period === Utils.getRouteParams().period ? 'active' : ''
           return <li class='tab col s2'>
-            <a class={active} href={'#' + period} onclick={function () {
-              m.route.set('/:currency/:period', {
-                currency: m.route.param().currency,
-                period: period
-              })
-            }
-                       }>
+            <a class={active} href={'#' + period} onclick={function () { Utils.setRouteParams(null, period) }}>
               {periodName}
             </a>
           </li>

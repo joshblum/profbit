@@ -23,15 +23,15 @@ var Chart = {
   },
   getColorConfig: function (currency) {
     return {
-      BTC: {
+      btc: {
         line: '#ffb119',
         background: '#ffecc6'
       },
-      ETH: {
+      eth: {
         line: '#6f7cba',
         background: '#e4e7f2'
       },
-      LTC: {
+      ltc: {
         line: '#b5b5b5',
         background: '#ececec'
       }

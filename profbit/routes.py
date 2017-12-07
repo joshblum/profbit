@@ -4,6 +4,7 @@ from flask import g
 from flask import jsonify
 from flask import redirect
 from flask import render_template
+from flask import request
 from flask_login import login_required
 from flask_login import logout_user
 from htmlmin.minify import html_minify
@@ -14,14 +15,8 @@ from .app import sentry
 from .coinbase_stats import get_coinbase_stats
 
 
-def _get_stats():
-    social_auth_user = g.user.social_auth.get()
-    # Coinbase returns `expires_in` but PSA expects `expires`
-    social_auth_user.extra_data['expires'] = social_auth_user.extra_data[
-            'expires_in']
-    access_token = social_auth_user.get_access_token(load_strategy())
-    return get_coinbase_stats(access_token)
-
+CURRENCIES = {'total', 'btc', 'eth', 'ltc'}
+PERIODS = {None, 'hour', 'day', 'week', 'month', 'year', 'all'}
 
 def minified_response(f):
     @wraps(f)
@@ -37,7 +32,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/donate')
+@app.route('/donate/')
 @minified_response
 def donate():
     return render_template('donate.html', donate_active='active')
@@ -53,7 +48,20 @@ def stats():
 @app.route('/api/stats/')
 @login_required
 def stats_api():
-    return jsonify(_get_stats())
+    social_auth_user = g.user.social_auth.get()
+    # Coinbase returns `expires_in` but PSA expects `expires`
+    social_auth_user.extra_data['expires'] = social_auth_user.extra_data[
+            'expires_in']
+    access_token = social_auth_user.get_access_token(load_strategy())
+    currency = request.args.get('currency', 'total').lower()
+    period = request.args.get('period', 'hour').lower()
+    if currency not in CURRENCIES or period not in PERIODS:
+        response = {
+            'error': True
+        }
+    else:
+        response = get_coinbase_stats(access_token, currency, period)
+    return jsonify(response)
 
 
 @app.route('/logout/')
@@ -64,7 +72,7 @@ def logout():
     return redirect('/')
 
 
-@app.route('/error')
+@app.route('/error/')
 def error():
     return internal_server_error(None, {
         'error_title': 'Oops',

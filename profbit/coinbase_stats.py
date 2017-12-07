@@ -1,27 +1,18 @@
 import datetime
 import re
+from collections import defaultdict
 from copy import copy
+from functools import lru_cache
 from enum import Enum
 from urllib import parse
 
-import gevent
 from coinbase.wallet.client import OAuthClient
-from gevent import monkey
 
 from .currency_map import CURRENCY_MAP
-
-monkey.patch_socket()
 
 
 TIMESTAMP_REGEX = re.compile(
     r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})')
-
-
-def parse_datetime(date_time):
-    # https://stackoverflow.com/a/14163523/1213319
-    return datetime.datetime(
-            *map(int, TIMESTAMP_REGEX.match(date_time).groups()))
-
 
 class StatTx():
     """
@@ -64,6 +55,28 @@ class StatPeriod(Enum):
     DAY = 'day'
     HOUR = 'hour'
 
+def parse_datetime(date_time):
+    # https://stackoverflow.com/a/14163523/1213319
+    return datetime.datetime(
+            *map(int, TIMESTAMP_REGEX.match(date_time).groups()))
+
+def paginate_response(client, func_name, *args, **kwargs):
+    """
+    Exhaust the available pages of data from the Coinbase client.
+    """
+    coinbase_func = getattr(client, func_name)
+    coinbase_response = coinbase_func(*args, **kwargs)
+    coinbase_data = coinbase_response.data
+    while coinbase_response.pagination.next_uri:
+        starting_after = parse.parse_qs(
+                coinbase_response.pagination.next_uri).get('starting_after')
+        kwargs['starting_after'] = starting_after
+
+        coinbase_response = coinbase_func(*args, **kwargs)
+        coinbase_data.extend(coinbase_response.data)
+    return coinbase_data
+
+
 
 def _get_currency_pair(currency, native):
     """
@@ -80,15 +93,14 @@ def _percent(investment, return_investment):
     return return_percent * 100
 
 
-def _get_investment_data(client, account, period, stat_txs):
+def _get_investment_data(client, currency_pair, period, stat_txs):
     """
     Get historic price data for the given `period` and `account`'s `currency`.
     We calculate how much our investment gained or lost at each historic
     data-point. We also calculate total stats for the period.
     """
     historic_prices = reversed(client.get_historic_prices(
-        currency_pair=_get_currency_pair(account.currency.code,
-                                         account.native_balance.currency),
+        currency_pair=currency_pair,
         period=period,
     ).prices)
     stat_txs = stat_txs or [
@@ -125,6 +137,9 @@ def _get_investment_data(client, account, period, stat_txs):
             curr_index += 1
             next_stat_tx = _next_tx(curr_index)
         if date_time < initial_stat_tx.date_time:
+            # Remove long tail of 0s for the 'all' period.
+            if period == 'all':
+                continue
             roi = 0
         else:
             roi = _get_roi_from_price_data(curr_stat_tx, price_data)
@@ -154,7 +169,7 @@ def _get_investment_data(client, account, period, stat_txs):
         period_end_stat_tx.native_amount, return_investment)
     total_investment = (period_end_stat_tx -
                         period_begin_stat_tx).native_amount
-    return period, {
+    return {
         'period_investment_data': {
             'total_investment': total_investment,
             'return_investment': return_investment,
@@ -163,24 +178,36 @@ def _get_investment_data(client, account, period, stat_txs):
         'historic_investment_data': historic_investment_data,
     }
 
+def _merge_stat_txs(array1, array2):
+    left_idx = 0
+    right_idx = 0
+    merged = []
+    while left_idx < len(array1) and right_idx < len(array2):
+        left = array1[left_idx]
+        right = array2[right_idx]
+        if left.date_time < right.date_time:
+            merged.append(left)
+        else:
+            merged.append(right)
+    merged.extend(array1[left_idx:])
+    merged.extend(array2[right_idx:])
+    return merged
 
-def _get_stat_txs(client, account):
+
+def _get_stat_txs(client, accounts):
     """
     Gather all transactions for the given `account` from Coinbase.  Calculate
     the cumulative sum across the ordered transactions
     """
-    coinbase_txs = client.get_transactions(account.id, order='asc', limit=100)
-    stat_txs = []
-    coinbase_data = coinbase_txs.data
-    while coinbase_txs.pagination.next_uri:
-        starting_after = parse.parse_qs(
-                coinbase_txs.pagination.next_uri).get('starting_after')
-        coinbase_txs = client.get_transactions(
-                account.id, order='asc', starting_after=starting_after,
-                limit=100)
-        coinbase_data.extend(coinbase_txs.data)
+    all_account_data = []
+    # Create a sorted list of all transactions for a given currency
+    for account in accounts:
+        account_data = paginate_response(client, 'get_transactions', *(account.id,), **{'order':'asc', 'limit':'100'})
+        all_account_data = _merge_stat_txs(all_account_data, account_data)
 
-    for i, coinbase_tx in enumerate(coinbase_data):
+    stat_txs = []
+
+    for i, coinbase_tx in enumerate(all_account_data):
         if coinbase_tx.status != 'completed':
             continue
         stat_tx = StatTx(
@@ -197,49 +224,80 @@ def _get_stat_txs(client, account):
     return stat_txs
 
 
-def _fetch_stats(client, account):
-    stat_txs = _get_stat_txs(client, account)
+def _get_stats_data_for_period(client, accounts, period):
+    accounts = list(accounts)
+    stat_txs = _get_stat_txs(client, accounts)
+    account = accounts[0]
+    currency_pair = _get_currency_pair(account.currency.code,
+                                     account.native_balance.currency)
+    return {
+        period: _get_investment_data(client, currency_pair, period, stat_txs)
+    }
 
-    jobs = []
-    for stat_period in StatPeriod:
-        period = stat_period.value
-        jobs.append(gevent.spawn(_get_investment_data,
-                                 client, account, period, stat_txs))
-    gevent.joinall(jobs)
+def _get_total_data(client, accounts):
+    account_mapping = defaultdict(list)
+    for account in accounts:
+        account_mapping[account.currency.code.lower()].append(account)
 
-    investment_data = {}
-    for job in jobs:
-        period, period_investment_data = job.value
-        investment_data[period] = period_investment_data
+    total_return_investment = 0
+    total_investment = 0
+    stats = {}
+    for currency, accounts in account_mapping.items():
+        total_balance = sum(float(account.native_balance.amount)
+                for account in accounts)
+        stat_txs = _get_stat_txs(client, accounts)
+        stat_txs = stat_txs or [
+            StatTx(datetime.datetime.now(), currency_amount=0, native_amount=0)
+        ]
+        investment = stat_txs[-1].native_amount
+        return_investment = total_balance - investment
+        stats[currency] = {
+            'total_investment': investment,
+            'return_investment': return_investment,
+            'return_percent': _percent(investment, return_investment)
+        }
+        total_investment += investment
+        total_return_investment += return_investment
+    stats['total'] = {
+        'total_investment': total_investment,
+        'return_investment': total_return_investment,
+        'return_percent': _percent(total_investment, total_return_investment)
+    }
+    return stats
 
-    return account.currency.code, investment_data
+
+@lru_cache(maxsize=512)
+def _get_user_and_accounts(access_token, cache_date):
+    """
+    We cache API calls for the Coinbase `User` object and account data,
+    refreshing it once per day. We pass in `cache_date` which has the
+    current date, forcing an API call if the date changes (and eventually
+    evicting expired dates).
+    """
+    client = OAuthClient(access_token, access_token)
+    user = client.get_current_user()
+    accounts = paginate_response(client, 'get_accounts', **{'limit':'100'})
+    return (user, accounts)
 
 
-def get_coinbase_stats(access_token):
+def get_coinbase_stats(access_token, currency, period):
     """
     Get historical investment data across all accounts.
     """
     client = OAuthClient(access_token, access_token)
-    user = client.get_current_user()
-    # TODO(joshblum): Handle wallet pagination.
-    accounts = client.get_accounts()
+    cache_date = datetime.datetime.date(datetime.datetime.now())
+    user, accounts = _get_user_and_accounts(access_token, cache_date)
 
-    jobs = []
-    for account in accounts.data:
-        if account.type != 'wallet':
-            # TODO(joshblum): Look into other account types.
-            continue
-        jobs.append(gevent.spawn(_fetch_stats, client, account))
-    gevent.joinall(jobs)
+    # TODO(joshblum): Look into other account types.
+    accounts = filter(lambda account: account.type == 'wallet', accounts)
+    if currency == 'total':
+        stats_data = _get_total_data(client, accounts)
+    else:
+        accounts = filter(lambda account: account.currency.code.lower() == currency, accounts)
+        stats_data = _get_stats_data_for_period(client, accounts, period)
 
-    # TODO(joshblum): Handle users with multiple wallets.
-    stats = {}
-    for job in jobs:
-        currency, investment_data = job.value
-        stats[currency] = investment_data
-    native_currency = user.native_currency
     return {
-        'stats': stats,
-        'native_currency': native_currency,
-        'native_currency_symbol': CURRENCY_MAP.get(native_currency, '$'),
+        'stats': {currency: stats_data},
+        'native_currency': user.native_currency,
+        'native_currency_symbol': CURRENCY_MAP.get(user.native_currency, '$'),
     }

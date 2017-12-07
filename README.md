@@ -11,9 +11,7 @@ Track your bitcoin, ethereum, and litecoin gains and losses in one place.
 
 ### Requirements
 We use [Pipenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) to
-manage requirements. Note that Python 3.6.3 is required to [incorporate a
-fix](https://bugs.python.org/issue26721) for using [gevent and werkzeug
-together](https://github.com/pallets/werkzeug/issues/920).
+manage requirements.
 
 ```bash
 pip install pipenv
