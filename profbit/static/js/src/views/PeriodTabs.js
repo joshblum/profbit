@@ -9,7 +9,7 @@ module.exports = {
   oncreate: Tabs.oncreate,
   onupdate: Tabs.onupdate,
   view: function () {
-    return <div class='col m6 s12'>
+    return <div class='col l4 s12'>
       <ul class='tabs'>
         {Object.keys(PeriodIntervals).map(function (period) {
           let periodName = PeriodIntervals[period]
