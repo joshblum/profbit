@@ -245,8 +245,13 @@ def _get_total_data(client, accounts):
     total_investment = 0
     stats = {}
     for currency, accounts in account_mapping.items():
-        total_balance = sum(float(account.native_balance.amount)
+        total_balance = sum(float(account.balance.amount)
                             for account in accounts)
+        account = accounts[0]
+        currency_pair = _get_currency_pair(account.currency.code,
+                                           account.native_balance.currency)
+        price = client.get_spot_price(currency_pair=currency_pair)
+        total_balance *= float(price.amount)
         stat_txs = _get_stat_txs(client, accounts)
         investment = stat_txs[-1].native_amount
         return_investment = total_balance - investment
