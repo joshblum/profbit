@@ -7,9 +7,11 @@ var InvestmentData = require('./InvestmentData')
 var Loading = require('./Loading')
 
 module.exports = {
+  oninit: function () {
+    Stats.loadData()
+  },
   view: function () {
     if (!Stats.isStatLoaded('total', /* period= */null)) {
-      Stats.loadData()
       return <Loading />
     }
     return <div class='valign-center flex-center'>
