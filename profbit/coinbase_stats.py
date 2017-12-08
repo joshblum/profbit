@@ -153,8 +153,13 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
                 'y': roi,
             })
 
-        # Get the final datapoint in the iterator.
-        period_end_price_data = price_data
+    # Put a final data point of 'now' at the end of our dataset so the report
+    # is accurate to the spotprice
+    # Why doesn't Coinbase just send back a time for that spotprice??
+    period_end_time = client.get_time()
+    period_end_price_data = client.get_spot_price(currency_pair=currency_pair)
+    # Fix this object to look like a historical price_data
+    period_end_price_data.price = period_end_price_data.amount
 
     period_begin_roi = _get_roi_from_price_data(
         period_begin_stat_tx, period_begin_price_data)
@@ -165,6 +170,11 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
         period_end_stat_tx.native_amount, return_investment)
     total_investment = (period_end_stat_tx -
                         period_begin_stat_tx).native_amount
+
+    historic_investment_data.append({
+        'x': period_end_time.epoch,
+        'y': period_end_roi,
+    })
     return {
         'period_investment_data': {
             'total_investment': total_investment,
