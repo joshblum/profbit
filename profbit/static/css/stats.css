@@ -15,15 +15,12 @@
   background-color: #0059AB !important;
 }
 
-#currencyTabs .tabs .tab a {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .tabs .tab a {
   padding: 0px;
+}
+
+.inline-flex {
+  display: inline-flex !important;
 }
 
 .tab-row {
@@ -62,4 +59,17 @@
 
 .investment-total:before {
   content: "total ";
+}
+
+@media only screen and (max-width: 425px) {
+  .current-price {
+    font-size: 10px;
+  }
+  .tabs .tab {
+    padding: 0px;
+  }
+  .currency-icon {
+    width: 16px;
+    height: 16px;
+  }
 }

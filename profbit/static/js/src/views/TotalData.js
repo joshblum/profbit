@@ -22,21 +22,27 @@ module.exports = {
             <div class='card white z-depth-1'>
               <div class='card-content black-text'>
                 <div class='flow-text row no-margin'>
-                  <div class='col s6 border-right'>
+
+                  <div class='col s12'>
                     <div class='valign-wrapper flex-center'>
                       <span class={currency + '-icon currency-icon'} />
                       <span class='small-caps'>{ currency.toLowerCase() }</span>
                     </div>
                   </div>
+                  <div class='col s6 investment-container border-right'>
+                    <InvestmentData value={currencyStats.total_balance} description='balance' noGains />
+                  </div>
                   <div class='col s6 investment-container'>
                     <InvestmentData value={currencyStats.total_investment} />
                   </div>
+
                   <div class='col s6 investment-container border-right'>
                     <InvestmentData value={currencyStats.return_investment} isReturnsData />
                   </div>
                   <div class='col s6 investment-container'>
                     <InvestmentData value={currencyStats.return_percent} isPercent isReturnsData />
                   </div>
+
                 </div>
               </div>
             </div>

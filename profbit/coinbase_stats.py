@@ -253,29 +253,35 @@ def _get_total_data(client, accounts):
 
     total_return_investment = 0
     total_investment = 0
+    total_balance = 0
     stats = {}
     for currency, accounts in account_mapping.items():
-        total_balance = sum(float(account.balance.amount)
+        account_balance = sum(float(account.balance.amount)
                             for account in accounts)
         account = accounts[0]
         currency_pair = _get_currency_pair(account.currency.code,
                                            account.native_balance.currency)
         price = client.get_spot_price(currency_pair=currency_pair)
-        total_balance *= float(price.amount)
+        account_balance *= float(price.amount)
         stat_txs = _get_stat_txs(client, accounts)
         investment = stat_txs[-1].native_amount
-        return_investment = total_balance - investment
+        return_investment = account_balance - investment
         stats[currency] = {
+            'total_balance': account_balance,
             'total_investment': investment,
             'return_investment': return_investment,
-            'return_percent': _percent(investment, return_investment)
+            'return_percent': _percent(investment, return_investment),
+            'current_price': price.amount,
         }
+        total_balance += account_balance
         total_investment += investment
         total_return_investment += return_investment
     stats['total'] = {
+        'total_balance': total_balance,
         'total_investment': total_investment,
         'return_investment': total_return_investment,
-        'return_percent': _percent(total_investment, total_return_investment)
+        'return_percent': _percent(total_investment, total_return_investment),
+        'current_price': None,
     }
     return stats
 

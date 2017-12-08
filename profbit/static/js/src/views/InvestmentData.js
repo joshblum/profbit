@@ -6,13 +6,24 @@ var Stats = require('../models/Stats')
 module.exports = {
   view: function (vnode) {
     let value = vnode.attrs.value
-    let gainsData = this.getGainsData(value)
+    let gainsData
+    if (!vnode.attrs.noGains) {
+      gainsData = this.getGainsData(value)
+    }
+
+    let description = vnode.attrs.description
+    if (!description) {
+      description = vnode.attrs.isReturnsData ? gainsData.returnsDescription : gainsData.investmentDescription
+    }
+
     value = Math.abs(value)
     let formattedValue = vnode.attrs.isPercent ? Stats.formatPercent(value) : Stats.formatCurrency(value)
-    let description = vnode.attrs.isReturnsData ? gainsData.returnsDescription : gainsData.investmentDescription
+
     return <div>
       <span class='investment-amount'>
-        <span class={gainsData.cls + '-gains gains'}>{gainsData.symbol}</span>
+        {(function () {
+          if (gainsData) return <span class={gainsData.cls + '-gains gains'}>{gainsData.symbol}</span>
+        }())}
         {formattedValue}
       </span>
       <span class='investment-description'>
