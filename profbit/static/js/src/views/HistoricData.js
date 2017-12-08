@@ -8,13 +8,15 @@ var Loading = require('./Loading')
 var Utils = require('../utils/Utils')
 
 module.exports = {
+  oninit: function () {
+    Stats.loadData()
+  },
   view: function (vnode) {
     const routeParams = Utils.getRouteParams()
     const currency = routeParams.currency
     const period = routeParams.period
 
     if (!Stats.isStatLoaded(currency, period)) {
-      Stats.loadData()
       return <Loading />
     }
 

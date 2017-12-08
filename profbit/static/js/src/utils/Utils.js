@@ -4,7 +4,7 @@ var m = require('mithril')
 
 module.exports = {
   getRouteParams: function () {
-    const routeParams = m.route.param()
+    const routeParams = m.route.param() || {}
     return {
       currency: (routeParams.currency || 'total').toLowerCase(),
       period: (routeParams.period || 'hour').toLowerCase()
@@ -12,9 +12,13 @@ module.exports = {
   },
   setRouteParams: function (currency, period) {
     const routeParams = this.getRouteParams()
+    currency = currency || routeParams.currency
+    period = period || routeParams.period
     m.route.set('/:currency/:period', {
-      currency: currency || routeParams.currency,
-      period: period || routeParams.period
+      currency: currency,
+      period: period
     })
+    var Stats = require('../models/Stats')
+    Stats.loadData(currency, period)
   }
 }
