@@ -5,6 +5,7 @@ var PeriodTabs = require('./views/PeriodTabs')
 var HistoricData = require('./views/HistoricData')
 var Layout = require('./views/Layout')
 var TotalData = require('./views/TotalData')
+var RefreshInterval = require('./models/RefreshInterval')
 var Stats = require('./models/Stats')
 
 var TotalView = {
@@ -28,5 +29,4 @@ m.route(document.getElementById('app'), '/total', {
   }
 })
 
-// Poll for new data every 30 seconds
-setInterval(Stats.loadData, 30 * 1000)
+setInterval(Stats.loadData, RefreshInterval.value)

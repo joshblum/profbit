@@ -3,6 +3,7 @@
 var m = require('mithril') // eslint-disable-line no-unused-vars
 var Currencies = require('./Currencies')
 var PeriodIntervals = require('./PeriodIntervals')
+var RefreshInterval = require('./RefreshInterval')
 var Utils = require('../utils/Utils')
 
 var Stats = {
@@ -47,7 +48,8 @@ var Stats = {
     Stats._setState('pendingRequests', currency, period, value)
   },
   isPendingRequest: function (currency, period) {
-    return Stats._getState('pendingRequests', currency, period) === true
+    let pendingRequest = Stats._getState('pendingRequests', currency, period)
+    return pendingRequest && (new Date() - pendingRequest) <= RefreshInterval.value
   },
   isStatLoaded: function (currency, period) {
     return Stats._getState('loaded', currency, period) === true
@@ -85,7 +87,7 @@ var Stats = {
         currency: currency,
         period: period
       },
-      config: function () { Stats.setPendingRequest(currency, period, true) }
+      config: function () { Stats.setPendingRequest(currency, period, new Date()) }
     }).then((result) => {
       Stats.setPendingRequest(currency, period, false)
       if (result.error === true) {
