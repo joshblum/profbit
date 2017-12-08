@@ -26,7 +26,7 @@ module.exports = {
             <a href={'#' + currency} class={active + ' inline-flex valign-wrapper flex-center'}
               onclick={function () { Utils.setRouteParams(currency, /* period= */null) }}>
               <span class={currency + '-icon currency-icon'} />
-              <span class='current-price'>
+              <span class='current-price black-text'>
                 {currentPrice}
               </span>
             </a>
