@@ -5,16 +5,18 @@ var Stats = require('../models/Stats')
 var Chart = require('./Chart')
 var InvestmentData = require('./InvestmentData')
 var Loading = require('./Loading')
+var Utils = require('../utils/Utils')
 
 module.exports = {
-  oninit: Stats.loadData,
   view: function (vnode) {
-    if (!Stats.isLoaded) {
+    const routeParams = Utils.getRouteParams()
+    const currency = routeParams.currency
+    const period = routeParams.period
+
+    if (!Stats.isStatLoaded(currency, period)) {
+      Stats.loadData()
       return <Loading />
     }
-    const routeParams = m.route.param()
-    const currency = routeParams.currency.toUpperCase()
-    const period = routeParams.period.toLowerCase()
 
     const investmentData = Stats.data.stats[currency]
     const periodInvestmentData = investmentData[period].period_investment_data

@@ -133,15 +133,15 @@ code {
   background-image: url("/static/img/total.svg");
 }
 
-.BTC-icon {
+.btc-icon {
   background-image: url("/static/img/bitcoin.svg");
 }
 
-.ETH-icon {
+.eth-icon {
   background-image: url("/static/img/etherum.svg");
 }
 
-.LTC-icon {
+.ltc-icon {
   background-image: url("/static/img/litecoin.svg");
 }
 

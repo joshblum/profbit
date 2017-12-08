@@ -7,15 +7,15 @@ var InvestmentData = require('./InvestmentData')
 var Loading = require('./Loading')
 
 module.exports = {
-  oninit: Stats.loadData,
   view: function () {
-    if (!Stats.isLoaded) {
+    if (!Stats.isStatLoaded('total', /* period= */null)) {
+      Stats.loadData()
       return <Loading />
     }
     return <div class='valign-center flex-center'>
       <div class='row'>
         {Currencies.map(function (currency) {
-          var currencyStats = Stats.data.investmentTotals[currency]
+          var currencyStats = Stats.data.totalInvestmentStats[currency]
           return <div class='col center s12 m6'>
             <div class='card white z-depth-1'>
               <div class='card-content black-text'>

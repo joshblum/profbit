@@ -3,6 +3,7 @@
 var m = require('mithril') // eslint-disable-line no-unused-vars
 var Currencies = require('../models/Currencies')
 var Tabs = require('./Tabs')
+var Utils = require('../utils/Utils')
 
 module.exports = {
   oncreate: Tabs.oncreate,
@@ -11,22 +12,11 @@ module.exports = {
     return <div class='col m6 s12'>
       <ul class='tabs'>
         {Currencies.map(function (currency) {
-          let selectedCurrency = m.route.param().currency || ''
-          let active
-          if (currency === 'total' && (!selectedCurrency || selectedCurrency === 'total')) {
-            active = 'active'
-          } else {
-            active = currency === selectedCurrency.toUpperCase() ? 'active' : ''
-          }
+          let selectedCurrency = Utils.getRouteParams().currency
+          let active = currency === selectedCurrency ? 'active' : ''
           return <li class='tab col s1 m2'>
             <a href={'#' + currency} class={active + ' valign-wrapper flex-center'}
-              onclick={function () {
-                m.route.set('/:currency/:period', {
-                  currency: currency,
-                  period: m.route.param().period || 'hour'
-                })
-              }
-                       }>
+              onclick={function () { Utils.setRouteParams(currency, /* period= */null) }}>
               <span class={currency + '-icon currency-icon'} />
             </a>
           </li>
