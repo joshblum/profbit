@@ -4,6 +4,7 @@ import unittest
 
 from profbit.coinbase_stats import StatTx
 from profbit.coinbase_stats import _merge_stat_txs
+from profbit.coinbase_stats import _percent
 from profbit.coinbase_stats import parse_timestamp
 
 
@@ -28,3 +29,19 @@ class CoinbaseStatsTestCase(unittest.TestCase):
         now = now.replace(microsecond=0)
         timestamp = now.isoformat()
         self.assertEqual(now, parse_timestamp(timestamp))
+
+    def test_percent(self):
+        # Catch divide by 0
+        investment = 0
+        return_investment = 100
+        self.assertEqual(_percent(investment, return_investment), 0)
+
+        # If we withdraw but still make a profit, lol, net gains are
+        # positive.
+        investment = -5
+        return_investment = 100
+        self.assertEqual(_percent(investment, return_investment), 2000)
+
+        investment = -5
+        return_investment = -100
+        self.assertEqual(_percent(investment, return_investment), -2000)

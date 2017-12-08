@@ -90,7 +90,8 @@ def _percent(investment, return_investment):
     if investment == 0:
         return_percent = 0
     else:
-        return_percent = return_investment / investment
+        # return_percent gets the sign of the return_investment
+        return_percent = return_investment / abs(investment)
     return return_percent * 100
 
 
@@ -135,9 +136,6 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
             curr_index += 1
             next_stat_tx = _next_tx(curr_index)
         if date_time < initial_stat_tx.date_time:
-            # Remove long tail of 0s for the 'all' period.
-            if period == 'all':
-                continue
             roi = 0
         else:
             roi = _get_roi_from_price_data(curr_stat_tx, price_data)
@@ -149,10 +147,11 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
                 period_begin_stat_tx = copy(curr_stat_tx)
             period_begin_price_data = price_data
 
-        historic_investment_data.append({
-            'x': int(date_time.strftime('%s')),
-            'y': roi,
-        })
+        if not (date_time < initial_stat_tx.date_time and period == 'all'):
+            historic_investment_data.append({
+                'x': int(date_time.strftime('%s')),
+                'y': roi,
+            })
 
         # Get the final datapoint in the iterator.
         period_end_price_data = price_data
