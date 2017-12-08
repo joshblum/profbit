@@ -257,7 +257,7 @@ def _get_total_data(client, accounts):
     stats = {}
     for currency, accounts in account_mapping.items():
         account_balance = sum(float(account.balance.amount)
-                            for account in accounts)
+                              for account in accounts)
         account = accounts[0]
         currency_pair = _get_currency_pair(account.currency.code,
                                            account.native_balance.currency)
