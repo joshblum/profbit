@@ -217,8 +217,7 @@ def _get_stat_txs(client, accounts):
         all_account_data = _merge_stat_txs(all_account_data, account_data)
 
     stat_txs = []
-
-    for i, coinbase_tx in enumerate(all_account_data):
+    for coinbase_tx in all_account_data:
         if coinbase_tx.status != 'completed':
             continue
         stat_tx = StatTx(
@@ -228,9 +227,9 @@ def _get_stat_txs(client, accounts):
             native_amount=float(coinbase_tx.native_amount.amount),
             native_currency_code=account.native_balance.currency,
         )
-        if i != 0:
+        if len(stat_txs):
             # Keep a running sum of our total to compare to historical data.
-            stat_tx += stat_txs[i - 1]
+            stat_tx += stat_txs[-1]
         stat_txs.append(stat_tx)
     return stat_txs or [StatTx(datetime.datetime.now())]
 
