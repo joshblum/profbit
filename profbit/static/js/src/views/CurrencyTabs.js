@@ -16,7 +16,7 @@ module.exports = {
           let selectedCurrency = Utils.getRouteParams().currency
           let active = currency === selectedCurrency ? 'active' : ''
           let currentPrice = null
-          if (Stats.data !== null) {
+          if (Stats.isStatLoaded('total', null)) {
             currentPrice = Stats.data.totalInvestmentStats[currency].current_price
           }
           if (currentPrice !== null) {
