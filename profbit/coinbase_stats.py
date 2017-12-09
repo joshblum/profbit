@@ -185,14 +185,15 @@ def _get_investment_data(client, currency_pair, period, stat_txs):
     }
 
 
-def _merge_stat_txs(array1, array2):
+def _merge_coinbase_txs(array1, array2):
     left_idx = 0
     right_idx = 0
     merged = []
     while left_idx < len(array1) and right_idx < len(array2):
         left = array1[left_idx]
         right = array2[right_idx]
-        if left.date_time < right.date_time:
+        if (parse_timestamp(left.created_at) <
+                parse_timestamp(right.created_at)):
             merged.append(left)
             left_idx += 1
         else:
@@ -214,7 +215,7 @@ def _get_stat_txs(client, accounts):
         account_data = paginate_response(
             client, 'get_transactions',
             *(account.id,), **{'order': 'asc', 'limit': '100'})
-        all_account_data = _merge_stat_txs(all_account_data, account_data)
+        all_account_data = _merge_coinbase_txs(all_account_data, account_data)
 
     stat_txs = []
     for coinbase_tx in all_account_data:
