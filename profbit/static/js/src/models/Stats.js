@@ -49,7 +49,7 @@ var Stats = {
   },
   isPendingRequest: function (currency, period) {
     let pendingRequest = Stats._getState('pendingRequests', currency, period)
-    return pendingRequest && (new Date() - pendingRequest) <= RefreshInterval.value
+    return pendingRequest && (new Date() - pendingRequest) < RefreshInterval.value
   },
   isStatLoaded: function (currency, period) {
     return Stats._getState('loaded', currency, period) === true
@@ -58,7 +58,7 @@ var Stats = {
     Stats._setState('loaded', currency, period, value)
   },
   prefetchData: function () {
-    if (!Stats.isStatLoaded('total', /* period= */null)) {
+    if (!Stats.isPendingRequest('total', /* period= */null)) {
       Stats.loadData('total', /* period= */null)
     }
     for (let currency in Currencies) {
@@ -67,7 +67,7 @@ var Stats = {
         continue
       }
       for (let period in PeriodIntervals) {
-        if (!Stats.isStatLoaded(currency, period)) {
+        if (!Stats.isPendingRequest(currency, period)) {
           Stats.loadData(currency, period)
         }
       }
@@ -87,9 +87,8 @@ var Stats = {
         currency: currency,
         period: period
       },
-      config: function () { Stats.setPendingRequest(currency, period, new Date()) }
+      config: function () { Stats.setPendingRequest(currency, period, new Date() - 1000) }
     }).then((result) => {
-      Stats.setPendingRequest(currency, period, false)
       if (result.error === true) {
         window.location.replace('/error/')
       }

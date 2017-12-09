@@ -29,4 +29,4 @@ m.route(document.getElementById('app'), '/total', {
   }
 })
 
-setInterval(Stats.loadData, RefreshInterval.value)
+setInterval(Stats.prefetchData, RefreshInterval.value)
