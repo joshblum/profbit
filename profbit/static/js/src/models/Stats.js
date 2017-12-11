@@ -80,14 +80,14 @@ var Stats = {
     if (Stats.isPendingRequest(currency, period)) {
       return
     }
+    Stats.setPendingRequest(currency, period, new Date())
     return m.request({
       method: 'GET',
       url: '/api/stats/',
       data: {
         currency: currency,
         period: period
-      },
-      config: function () { Stats.setPendingRequest(currency, period, new Date() - 1000) }
+      }
     }).then((result) => {
       if (result.error === true) {
         window.location.replace('/error/')
