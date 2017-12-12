@@ -1,3 +1,4 @@
+import logging
 from functools import wraps
 
 from flask import g
@@ -13,6 +14,8 @@ from social_flask.utils import load_strategy
 from .app import app
 from .app import sentry
 from .coinbase_stats import get_coinbase_stats
+
+logger = logging.getLogger(__name__)
 
 CURRENCIES = {'total', 'btc', 'eth', 'ltc'}
 PERIODS = {None, 'hour', 'day', 'week', 'month', 'year', 'all'}
@@ -60,7 +63,14 @@ def stats_api():
             'error': True
         }
     else:
-        response = get_coinbase_stats(access_token, currency, period)
+        try:
+            response = get_coinbase_stats(access_token, currency, period)
+        except Exception as e:
+            logger.exception('APIError')
+            response = {
+                'error': True
+            }
+
     return jsonify(response)
 
 

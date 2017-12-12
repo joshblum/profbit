@@ -90,7 +90,7 @@ var Stats = {
       }
     }).then((result) => {
       if (result.error === true) {
-        window.location.replace('/error/')
+        throw new Error('APIError')
       }
       if (Stats.data === null) {
         Stats.data = {
