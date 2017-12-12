@@ -48,6 +48,10 @@
     "IS_HEROKU": {
       "description": "Signals that the server is running on Heroku.",
       "value": "1"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "Number of workers for our application.",
+      "value": 4
     }
   }
 }
