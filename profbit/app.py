@@ -1,3 +1,4 @@
+import logging
 from urllib import parse
 
 from flask import Flask
@@ -8,7 +9,9 @@ from flask_login import LoginManager
 from flask_login import current_user
 from peewee import PostgresqlDatabase
 from peewee import SqliteDatabase
+from raven.conf import setup_logging
 from raven.contrib.flask import Sentry
+from raven.handlers.logging import SentryHandler
 from social_flask.routes import social_auth
 from social_flask_peewee.models import FlaskStorage
 from social_flask_peewee.models import init_social
@@ -27,6 +30,9 @@ Compress(app)
 SENTRY_DSN = app.config.get('SENTRY_PRIVATE_DSN')
 if not app.debug and SENTRY_DSN:
     sentry = Sentry(app, dsn=SENTRY_DSN)
+    handler = SentryHandler(SENTRY_DSN)
+    handler.setLevel(logging.ERROR)
+    setup_logging(handler)
 else:
     sentry = None
 
