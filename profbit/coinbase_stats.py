@@ -69,7 +69,8 @@ def paginate_response(client, func_name, *args, **kwargs):
     coinbase_func = getattr(client, func_name)
     coinbase_response = coinbase_func(*args, **kwargs)
     coinbase_data = coinbase_response.data
-    while coinbase_response.pagination.next_uri:
+    while (coinbase_response.pagination and
+            coinbase_response.pagination.next_uri):
         starting_after = parse.parse_qs(
                 coinbase_response.pagination.next_uri).get('starting_after')
         kwargs['starting_after'] = starting_after
