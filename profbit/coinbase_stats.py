@@ -287,7 +287,7 @@ def _get_total_data(client, accounts):
     return stats
 
 
-@lru_cache(maxsize=512)
+@lru_cache(maxsize=256)
 def _get_user_and_accounts(access_token, cache_date):
     """
     We cache API calls for the Coinbase `User` object and account data,
