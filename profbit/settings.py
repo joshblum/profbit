@@ -7,6 +7,7 @@ FLASK_DEBUG = not IS_HEROKU
 DATABASE_URL = os.environ.get('DATABASE_URL', '/tmp/profbit.db')
 SENTRY_PRIVATE_DSN = os.environ.get('SENTRY_PRIVATE_DSN', '')
 GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')
+SB_AGENT_ID = os.environ.get('SB_AGENT_ID', '')
 CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', '')
 
 # For templates
