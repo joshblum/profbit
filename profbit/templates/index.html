@@ -14,7 +14,7 @@
     </script>
   {% endif %}
   {% if config.SB_AGENT_ID %}
-    <script>window.SB_AGENT_ID = "{{ SB_AGENT_ID }}";</script>
+    <script>window.SB_AGENT_ID = "{{ config.SB_AGENT_ID }}";</script>
     <script src="https://getswayed.com/static/chat/client.js" async defer></script>
   {% endif%}
 {% endblock %}
