@@ -168,6 +168,11 @@ code {
   font-size: .9rem;
 }
 
+.step-img {
+  width: 256;
+  height: 256px
+}
+
 @media only screen and (max-width: 425px) {
   .index-intro-text {
     display: block;
