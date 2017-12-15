@@ -8,6 +8,7 @@ from urllib import parse
 
 from coinbase.wallet.client import OAuthClient
 
+from .app import app
 from .currency_map import CURRENCY_MAP
 
 TIMESTAMP_REGEX = re.compile(
@@ -287,7 +288,7 @@ def _get_total_data(client, accounts):
     return stats
 
 
-@lru_cache(maxsize=256)
+@lru_cache(maxsize=app.config.get('CACHE_SIZE'))
 def _get_user_and_accounts(access_token, cache_date):
     """
     We cache API calls for the Coinbase `User` object and account data,
