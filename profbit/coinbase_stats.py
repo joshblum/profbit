@@ -8,8 +8,8 @@ from urllib import parse
 
 from coinbase.wallet.client import OAuthClient
 
-from .currency_map import CURRENCY_MAP
 from .app import app
+from .currency_map import CURRENCY_MAP
 
 TIMESTAMP_REGEX = re.compile(
     r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})')
@@ -286,6 +286,7 @@ def _get_total_data(client, accounts):
         'current_price': None,
     }
     return stats
+
 
 @lru_cache(maxsize=app.config.get('CACHE_SIZE'))
 def _get_user_and_accounts(access_token, cache_date):
