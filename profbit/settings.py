@@ -9,6 +9,7 @@ SENTRY_PRIVATE_DSN = os.environ.get('SENTRY_PRIVATE_DSN', '')
 GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')
 SB_AGENT_ID = os.environ.get('SB_AGENT_ID', '')
 CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', '')
+CACHE_SIZE = int(os.environ.get('CACHE_SIZE', 128))
 
 # For templates
 LOGIN_URL = "/login/coinbase/?remember_me=1"
