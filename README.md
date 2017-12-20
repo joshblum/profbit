@@ -4,8 +4,9 @@
 [![codecov](https://codecov.io/gh/joshblum/profbit/branch/master/graph/badge.svg)](https://codecov.io/gh/joshblum/profbit)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-Track your bitcoin, ethereum, and litecoin gains and losses in one place.
-![profbit preview](https://github.com/joshblum/profbit/blob/master/profbit/static/img/preview.gif)
+Track your bitcoin, bitcoin cash, ethereum, and litecoin gains and losses in
+one place.  ![profbit
+preview](https://github.com/joshblum/profbit/blob/master/profbit/static/img/preview.gif)
 
 ## Development Setup
 
@@ -45,6 +46,7 @@ Profbit is an open source side project. To support development and keep
 our server running, you can donate using:
 
 - Bitcoin: `19UsnMKjhm22mFEYKKNHjxdFCfnShTcbPM`
+- Bitcoin Cash: `1L7qfnMFdgfrE5qTLDYvQskn3TiubUUpJP`
 - Ethereum: `0x97A3D535391A5a87f8362935B26f252E68C25Aca`
 - Litecoin: `LWk4TL8n866gmLmEvQWSs9V7tBBdyoWjgQ`
 

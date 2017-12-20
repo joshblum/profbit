@@ -10,7 +10,7 @@ module.exports = {
   oncreate: Tabs.oncreate,
   onupdate: Tabs.onupdate,
   view: function () {
-    return <div class='col l8 s12'>
+    return <div class='col s12'>
       <ul class='tabs'>
         {Currencies.map(function (currency) {
           let selectedCurrency = Utils.getRouteParams().currency
@@ -22,7 +22,7 @@ module.exports = {
           if (currentPrice !== null) {
             currentPrice = Stats.formatCurrency(currentPrice)
           }
-          return <li class='tab col s3'>
+          return <li class='tab col s2 currency-tab'>
             <a href={'#' + currency} class={active + ' inline-flex valign-wrapper flex-center'}
               onclick={function () { Utils.setRouteParams(currency, /* period= */null) }}>
               <span class={currency + '-icon currency-icon'} />

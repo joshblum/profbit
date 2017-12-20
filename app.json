@@ -1,8 +1,8 @@
 {
   "name": "Profbit",
-  "description": "Track your bitcoin, ethereum, and litecoin gains and losses in one place.",
+  "description": "Track your bitcoin, bitcoin cash, ethereum, and litecoin gains and losses in one place.",
   "repository": "https://github.com/joshblum/profbit",
-  "keywords": ["coinbase", "bitcoin", "ethereum", "litecoin", "flask"],
+  "keywords": ["coinbase", "bitcoin", "bitcoin cash", "ethereum", "litecoin", "flask"],
   "logo": "http://www.profbit.info/static/img/app-icon.png",
   "website": "https://www.profbit.info",
   "success_url": "/",
