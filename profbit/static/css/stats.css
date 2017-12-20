@@ -2,6 +2,11 @@
   height: 80vh;
 }
 
+.tabs {
+  display: flex;
+  justify-content: center;
+}
+
 .tabs .tab a {
   color: rgba(0, 89, 171, 0.7);
 }
@@ -67,6 +72,9 @@
   }
   .tabs .tab {
     padding: 0px;
+  }
+  .currency-tab {
+    width: unset !important;
   }
   .currency-icon {
     width: 16px;

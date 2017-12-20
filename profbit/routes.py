@@ -17,7 +17,7 @@ from .coinbase_stats import get_coinbase_stats
 
 logger = logging.getLogger(__name__)
 
-CURRENCIES = {'total', 'btc', 'eth', 'ltc'}
+CURRENCIES = {'total', 'btc', 'bch', 'eth', 'ltc'}
 PERIODS = {None, 'hour', 'day', 'week', 'month', 'year', 'all'}
 
 

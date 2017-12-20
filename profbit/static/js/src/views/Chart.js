@@ -27,6 +27,10 @@ var Chart = {
         line: '#ffb119',
         background: '#ffecc6'
       },
+      bch: {
+        line: '#88c461',
+        background: '#e1f0d5'
+      },
       eth: {
         line: '#6f7cba',
         background: '#e4e7f2'

@@ -137,6 +137,10 @@ code {
   background-image: url("/static/img/bitcoin.svg");
 }
 
+.bch-icon {
+  background-image: url("/static/img/bitcoin-cash.svg");
+}
+
 .eth-icon {
   background-image: url("/static/img/etherum.svg");
 }
