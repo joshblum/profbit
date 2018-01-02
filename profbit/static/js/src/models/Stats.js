@@ -90,7 +90,9 @@ var Stats = {
       }
     }).then((result) => {
       if (result.error === true) {
-        throw new Error('APIError')
+        let error = new Error('APIError')
+        error.result = result
+        throw error
       }
       if (Stats.data === null) {
         Stats.data = {
@@ -123,7 +125,7 @@ var Stats = {
     .catch(function (e) {
       Stats.setPendingRequest(currency, period, false)
       if (Stats.data === null) {
-        window.location.replace('/error/')
+        window.location.replace(e.result.redirect_url)
       }
     })
   },

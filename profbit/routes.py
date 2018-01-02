@@ -1,14 +1,17 @@
 import logging
 from functools import wraps
 
+from coinbase.wallet.error import APIError
 from flask import g
 from flask import jsonify
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import url_for
 from flask_login import login_required
 from flask_login import logout_user
 from htmlmin.minify import html_minify
+from requests.exceptions import HTTPError
 from social_flask.utils import load_strategy
 
 from .app import app
@@ -58,6 +61,7 @@ def stats_api():
     access_token = social_auth_user.get_access_token(load_strategy())
     currency = request.args.get('currency', 'total').lower()
     period = request.args.get('period', 'hour').lower()
+    redirect_url = url_for('error')
     if currency not in CURRENCIES or period not in PERIODS:
         response = {
             'error': True
@@ -67,9 +71,14 @@ def stats_api():
             response = get_coinbase_stats(access_token, currency, period)
         except Exception as e:
             logger.exception('APIError')
+            if isinstance(e, APIError) and e.id == 'revoked_token':
+                redirect_url = url_for('logout')
+            if isinstance(e, HTTPError) and e.response.status_code == 401:
+                redirect_url = url_for('logout')
             response = {
                 'error': True
             }
+    response['redirect_url'] = redirect_url
 
     return jsonify(response)
 
@@ -79,7 +88,7 @@ def stats_api():
 def logout():
     """Logout view"""
     logout_user()
-    return redirect('/')
+    return redirect(url_for('index'))
 
 
 @app.route('/error/')
