@@ -1,4 +1,5 @@
 var m = require('mithril')
+var ifvisible = require('ifvisible.js')
 
 var CurrencyTabs = require('./views/CurrencyTabs')
 var PeriodTabs = require('./views/PeriodTabs')
@@ -29,4 +30,4 @@ m.route(document.getElementById('app'), '/total', {
   }
 })
 
-setInterval(Stats.prefetchData, RefreshInterval.value)
+ifvisible.onEvery(RefreshInterval.value, Stats.prefetchData)
