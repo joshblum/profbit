@@ -1,6 +1,7 @@
 'use strict'
 
 var m = require('mithril') // eslint-disable-line no-unused-vars
+
 var Currencies = require('./Currencies')
 var PeriodIntervals = require('./PeriodIntervals')
 var RefreshInterval = require('./RefreshInterval')
