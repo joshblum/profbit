@@ -31,3 +31,4 @@ m.route(document.getElementById('app'), '/total', {
 })
 
 ifvisible.onEvery(RefreshInterval.value, Stats.prefetchData)
+ifvisible.wakeup(Stats.prefetchData)
