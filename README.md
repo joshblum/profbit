@@ -18,6 +18,7 @@ manage requirements.
 pip install pipenv
 pipenv install
 pipenv shell
+npm install --dev
 ```
 
 ### Server Config
@@ -37,6 +38,7 @@ export FLASK_APP=app.py
 export FLASK_DEBUG=1
 
 flask syncdb
+npm build
 ```
 
 
