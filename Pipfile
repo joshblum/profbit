@@ -33,3 +33,4 @@ raven = {extras = ["flask"]}
 flask-compress = "*"
 django-htmlmin = "*"
 gevent = "*"
+peewee = "==2.10.2"
