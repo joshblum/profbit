@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/profbit
     docker:
-        - image: python:3.6.3
+        - image: python:3.6.4
     steps:
       - checkout
       - run: curl -sL https://deb.nodesource.com/setup_8.x  | bash -
