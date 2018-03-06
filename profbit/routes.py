@@ -32,6 +32,11 @@ def minified_response(f):
     return minify
 
 
+@app.route('/keybase.txt')
+def keybase():
+    return app.send_static_file('keybase.txt')
+
+
 @app.route('/')
 @minified_response
 def index():

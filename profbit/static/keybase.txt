@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/joshblum
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.profbit.info
+  * I am joshblum (https://keybase.io/joshblum) on keybase.
+  * I have a public key ASDZY6ZsFfgCfi90zHpDUuonnW5Tm0pxmO7Z0yQVTFoqqwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "010153bcb4567ce28ea5e605990e1a012e6e0cb9d29c25edd04cfcc9e47caa13b35b0a",
+      "host": "keybase.io",
+      "kid": "0120d963a66c15f8027e2f74cc7a4352ea279d6e539b4a7198eed9d324154c5a2aab0a",
+      "uid": "d1b3a5fa977ce53da2c2142a4511bc00",
+      "username": "joshblum"
+    },
+    "merkle_root": {
+      "ctime": 1520338368,
+      "hash": "0a5651736834f2d65d93c7513fde0ff95804f6858690bd6485722b27d88799305f664818c6be10f1c0eced868275d9e8ed479716a1988f3356863ad39cf70c11",
+      "hash_meta": "095535b77b5e4507444e54e4ec4e80444416263cdd4875991ca514a690ce1aad",
+      "seqno": 2190767
+    },
+    "service": {
+      "hostname": "www.profbit.info",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.45"
+  },
+  "ctime": 1520338395,
+  "expire_in": 504576000,
+  "prev": "1673a80cbdc80128359e2081d1eb39129351db4d68d402b3285a65f3f3df962a",
+  "seqno": 68,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg2WOmbBX4An4vdMx6Q1LqJ51uU5tKcZju2dMkFUxaKqsKp3BheWxvYWTFA0l7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxNTNiY2I0NTY3Y2UyOGVhNWU2MDU5OTBlMWEwMTJlNmUwY2I5ZDI5YzI1ZWRkMDRjZmNjOWU0N2NhYTEzYjM1YjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZDk2M2E2NmMxNWY4MDI3ZTJmNzRjYzdhNDM1MmVhMjc5ZDZlNTM5YjRhNzE5OGVlZDlkMzI0MTU0YzVhMmFhYjBhIiwidWlkIjoiZDFiM2E1ZmE5NzdjZTUzZGEyYzIxNDJhNDUxMWJjMDAiLCJ1c2VybmFtZSI6Impvc2hibHVtIn0sIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNTIwMzM4MzY4LCJoYXNoIjoiMGE1NjUxNzM2ODM0ZjJkNjVkOTNjNzUxM2ZkZTBmZjk1ODA0ZjY4NTg2OTBiZDY0ODU3MjJiMjdkODg3OTkzMDVmNjY0ODE4YzZiZTEwZjFjMGVjZWQ4NjgyNzVkOWU4ZWQ0Nzk3MTZhMTk4OGYzMzU2ODYzYWQzOWNmNzBjMTEiLCJoYXNoX21ldGEiOiIwOTU1MzViNzdiNWU0NTA3NDQ0ZTU0ZTRlYzRlODA0NDQ0MTYyNjNjZGQ0ODc1OTkxY2E1MTRhNjkwY2UxYWFkIiwic2Vxbm8iOjIxOTA3Njd9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoid3d3LnByb2ZiaXQuaW5mbyIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjQ1In0sImN0aW1lIjoxNTIwMzM4Mzk1LCJleHBpcmVfaW4iOjUwNDU3NjAwMCwicHJldiI6IjE2NzNhODBjYmRjODAxMjgzNTllMjA4MWQxZWIzOTEyOTM1MWRiNGQ2OGQ0MDJiMzI4NWE2NWYzZjNkZjk2MmEiLCJzZXFubyI6NjgsInRhZyI6InNpZ25hdHVyZSJ9o3NpZ8RAU5lm1XKQYy8qzL8GvCuNkUMwZo8GYmjB4SSNz5bjG24sSO4JD16ZBkjmVxlRdHcgq41vt7C/BSO9KHW/jjLOCKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIFee944kmkFsEW+kv7Njjofx03asjNhNw4o+8gPJKAETo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/joshblum
+
+==================================================================
