@@ -7,7 +7,7 @@ name = "pypi"
 
 [requires]
 
-python_full_version = "3.6.3"
+python_full_version = "3.6.4"
 
 
 [dev-packages]
@@ -33,3 +33,4 @@ raven = {extras = ["flask"]}
 flask-compress = "*"
 django-htmlmin = "*"
 gevent = "*"
+peewee = "==2.10.2"
