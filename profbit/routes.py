@@ -59,11 +59,6 @@ def stats():
 @app.route('/api/stats/')
 @login_required
 def stats_api():
-    social_auth_user = g.user.social_auth.get()
-    # Coinbase returns `expires_in` but PSA expects `expires`
-    social_auth_user.extra_data['expires'] = social_auth_user.extra_data[
-            'expires_in']
-    access_token = social_auth_user.get_access_token(load_strategy())
     currency = request.args.get('currency', 'total').lower()
     period = request.args.get('period', 'hour').lower()
     redirect_url = url_for('error')
@@ -73,6 +68,11 @@ def stats_api():
         }
     else:
         try:
+            social_auth_user = g.user.social_auth.get()
+            # Coinbase returns `expires_in` but PSA expects `expires`
+            expires = social_auth_user.extra_data['expires_in']
+            social_auth_user.extra_data['expires'] = expires
+            access_token = social_auth_user.get_access_token(load_strategy())
             response = get_coinbase_stats(access_token, currency, period)
         except Exception as e:
             logger.exception('APIError')
