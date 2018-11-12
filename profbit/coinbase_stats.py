@@ -60,7 +60,7 @@ class StatPeriod(Enum):
 def parse_timestamp(timestamp):
     # https://stackoverflow.com/a/14163523/1213319
     return datetime.datetime(
-            *map(int, TIMESTAMP_REGEX.match(timestamp).groups()))
+        *map(int, TIMESTAMP_REGEX.match(timestamp).groups()))
 
 
 def paginate_response(client, func_name, *args, **kwargs):
@@ -73,7 +73,7 @@ def paginate_response(client, func_name, *args, **kwargs):
     while (coinbase_response.pagination and
             coinbase_response.pagination.next_uri):
         starting_after = parse.parse_qs(
-                coinbase_response.pagination.next_uri).get('starting_after')
+            coinbase_response.pagination.next_uri).get('starting_after')
         kwargs['starting_after'] = starting_after
 
         coinbase_response = coinbase_func(*args, **kwargs)
