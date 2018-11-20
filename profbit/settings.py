@@ -26,10 +26,10 @@ SOCIAL_AUTH_COINBASE_KEY = os.environ.get('SOCIAL_AUTH_COINBASE_KEY', '')
 SOCIAL_AUTH_COINBASE_SECRET = os.environ.get('SOCIAL_AUTH_COINBASE_SECRET', '')
 SOCIAL_AUTH_COINBASE_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_COINBASE_SCOPE = [
-        'wallet:accounts:read', 'wallet:transactions:read', 'wallet:user:read']
+    'wallet:accounts:read', 'wallet:transactions:read', 'wallet:user:read']
 SOCIAL_AUTH_COINBASE_AUTH_EXTRA_ARGUMENTS = {
-        'account': 'all',
-        'referral': '5943d0d36785cd04ad5c2d25',
+    'account': 'all',
+    'referral': '5943d0d36785cd04ad5c2d25',
 }
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/stats/'
 SOCIAL_AUTH_USER_MODEL = 'profbit.models.User'

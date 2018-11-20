@@ -3,8 +3,8 @@
   "description": "Track your bitcoin, bitcoin cash, ethereum, and litecoin gains and losses in one place.",
   "repository": "https://github.com/joshblum/profbit",
   "keywords": ["coinbase", "bitcoin", "bitcoin cash", "ethereum", "litecoin", "flask"],
-  "logo": "http://www.profbit.info/static/img/app-icon.png",
-  "website": "https://www.profbit.info",
+  "logo": "http://www.profbit.herokuapp.com/static/img/app-icon.png",
+  "website": "https://www.profbit.herokuapp.com",
   "success_url": "/",
   "scripts": {
     "postdeploy": "FLASK_APP=profbit/app.py flask syncdb"
