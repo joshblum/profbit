@@ -1,36 +1,30 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [requires]
-
 python_full_version = "3.6.7"
 
-
 [dev-packages]
-
 ipython = "*"
 "flake8" = "*"
 isort = "*"
 pytest = "*"
 codecov = "*"
 pytest-cov = "*"
-
+pathlib2 = "*"
 
 [packages]
-
 coinbase = {git = "git://github.com/joshblum/coinbase-python.git"}
 flask = "*"
 social-auth-app-flask-peewee = "*"
 flask-login = "*"
 gunicorn = "*"
-"psycopg2" = "*"
 werkzeug = "*"
 raven = {extras = ["flask"]}
 flask-compress = "*"
 django-htmlmin = "*"
 gevent = "*"
 peewee = "==2.10.2"
+psycopg2 = "==2.7.6.1"
