@@ -24,7 +24,7 @@
   "dependencies": {
     "chart.js": "^2.7.1",
     "ifvisible.js": "^1.0.6",
-    "mithril": "^1.1.6",
+    "mithril": "^1.1.7",
     "moment": "^2.19.3"
   },
   "devDependencies": {
